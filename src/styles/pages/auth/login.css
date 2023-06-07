@@ -1,0 +1,249 @@
+.container_login {
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+}
+.container_login img {
+  width: 45%;
+  height: auto;
+  opacity: 0.5;
+  margin-top: 1rem;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0.5rem;
+  margin-top: -60.5rem;
+}
+
+.login-form {
+  background-color: rgba(0, 0, 0);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+.login-form h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: rgb(255, 255, 255);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  text-align: left;
+  font-weight: bold;
+  color: rgb(255, 0, 0);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #eee;
+}
+
+.submit {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 3px;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 0, 0);
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+  text-decoration: none;
+}
+
+.submit:hover {
+  background-color: #b30000;
+}
+
+/*-----------LAPTOP MAC-----------*/
+@media (max-width: 1280px) {
+  .container_login img {
+    width: 52%;
+    margin-top: 1rem;
+  }
+  .container {
+    margin-top: -47rem;
+  }
+
+  .login-form {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .login-form h1 {
+    font-size: 2rem;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .submit {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+}
+/*-----------TABLET GRANDE-----------*/
+@media screen and (max-width: 885px) {
+  .container_login img {
+    width: 90%;
+    margin-top: 5rem;
+  }
+  .container {
+    margin-top: -60rem;
+  }
+}
+/*-----------TABLET MEDIANA-----------*/
+@media screen and (min-width: 800px) and (max-width: 834px) {
+  .container_login img {
+    width: 95%;
+    margin-top: 8rem;
+  }
+  .container {
+    margin-top: -63rem;
+  }
+}
+
+/*-----------TABLET PEQUEÑA-----------*/
+@media screen and (max-width: 768px) {
+  .container_login img {
+    width: 95%;
+    margin-top: 5rem;
+  }
+  .container {
+    margin-top: -55rem;
+  }
+}
+
+/*-----------CELULARES-----------*/
+@media screen and (max-width: 480px) {
+  .container_login {
+    height: 250vw;
+  }
+
+  .container_login img {
+    width: 40%;
+    margin-top: 2.5rem;
+    opacity: 1;
+  }
+  .container {
+    margin-top: -8rem;
+  }
+  .login-form {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .login-form h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="password"] {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .submit {
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+/*-----------CELULARES PEQUEÑOS-----------*/
+@media (max-width: 320px) {
+  .container_login img {
+    width: 30%;
+    margin-top: 1.5rem;
+  }
+  .container {
+    margin-top: -5.5rem;
+  }
+  .login-form {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .login-form h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .submit {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+}

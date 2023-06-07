@@ -1,0 +1,25 @@
+{
+  "short_name": "Bomberos UUBR",
+  "name": "Sitio Web para Bomberos Voluntarios UUBR.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "LOGO1.PNG",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "LOGO1.PNG",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: "Bebas Neue", sans-serif;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "Bebas Neue", sans-serif;
+  /*COLORES CLAROS*/
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-pantalla-varios-circulos-transparentes_58702-7114.jpg?w=1380&t=st=1685668586~exp=1685669186~hmac=6d57674b1f61aebd2f6ac92b90b9585c239dfef471becde94cb0df3c57e3ac30"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-pantalla-varios-circulos-transparentes_58702-7110.jpg?w=1380&t=st=1685668620~exp=1685669220~hmac=e5b421fffc9fc761097544cdf88e1f15f606ddf913b0e95949c83cb7e047acc7"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-papel-tapiz-colorido-borroso-vivo_58702-3808.jpg?w=1380&t=st=1685668643~exp=1685669243~hmac=008231c7f1e01e5f1317462398988271113243eb422e26f9436d325a8f7d6f33"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-textura-acrilico-verde-menta_53876-101907.jpg?w=1380&t=st=1685668658~exp=1685669258~hmac=0bb898f9844d273507ec88d3c4dc0bd7dd9adb321540a8e47d4d08a7661aaf6c"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-holografico-textura-plastica_53876-98395.jpg?w=1380&t=st=1685668672~exp=1685669272~hmac=7f92edfe3bcee1e1bfb59b494fb48a52d081f52b616b2646ac274251f2bb292b"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-metal-rayado-estilo-grunge-colores-pastel_1048-14311.jpg?w=1380&t=st=1685667730~exp=1685668330~hmac=05cca0a4ada8cf6ee7b2a8d7f51f018739656a0d2d5fd52f90f5f84f12614d66"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-moderno-acuarela-diseno-abstracto_23-2147923092.jpg?w=1480&t=st=1685667776~exp=1685668376~hmac=4def3e2fc62b5d36c3e899c9dbd229083c0802cb504e92f0ad21f54993d39711"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-textura-acuarela-roja-amarilla_64049-89.jpg?w=1380&t=st=1685667792~exp=1685668392~hmac=97bdf5e300b97a1a5410344b9853335f08dfc0d7c9a0628c6ef7e85ac3a51a5d"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-blanco-sucio-cemento-natural-o-textura-antigua-piedra-como-pared-patron-retro-banner-pared-conceptual-grunge-material-o-construccion_1258-70833.jpg?w=1480&t=st=1685663821~exp=1685664421~hmac=f8370e6201f7bda5260b4a2fa1b883afb4262839494d40e79edebd0f5a68ea4c"); */
+  /*COLORES OSCUROS*/
+  background-image: url("https://img.freepik.com/foto-gratis/pared-ladrillo-negro-textura-fondo_53876-63572.jpg?w=1380&t=st=1685667816~exp=1685668416~hmac=22506fc0e1a25c7cae5e733c566ace3520fe43572bbe912c58c267ea384ec39d");
+  /* background-image: url("https://img.freepik.com/foto-gratis/viejo-fondo-pared-negro-textura-ba-vineta-negro-fronterizos_1258-44.jpg?w=1380&t=st=1685667972~exp=1685668572~hmac=27bd82fb37ed3d7836221b1e04208261433097d99acffe835a4a008f63936d52"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-pared-ladrillo-grunge_1048-11975.jpg?w=826&t=st=1685668013~exp=1685668613~hmac=af37ae89c8af6eb79e943de25fdbfd9acffa93252ca4649f35659bb87ce61e57"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-textura-negra-oscura_24837-267.jpg?w=1380&t=st=1685668044~exp=1685668644~hmac=b55eaa19abfdf0827b157e92a75fd1c17c3622e53edf7580ff0692e698c7b64d"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-pared-ladrillo-textura-negro_53876-63583.jpg?w=1380&t=st=1685668053~exp=1685668653~hmac=5a9aca8c37d6c6dd9bf9a20816b98b6a638bf877015fa1d6edb8c9db6bb29f83"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/piso-madera-fondo-producto-pared-negra_53876-102460.jpg?w=1380&t=st=1685668061~exp=1685668661~hmac=7601b7880e874cab8f91ee9300ad997e81bfdd2fe0138af1b0eb425ff13739cb"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-producto-negro_53876-89498.jpg?w=1380&t=st=1685668081~exp=1685668681~hmac=cd08a94a37e6ee63e91d62c55cc105c44182616f3f6cefafc31729be48cffe72"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-metal-grunge-aranazos-manchas_1048-14029.jpg?w=826&t=st=1685668093~exp=1685668693~hmac=0111c7d5f0eaa51c4c475c7c3e08393f250e2cf456bbb693fee29f871e4b50dc"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-texturizado-hexagonal-redes_23-2150080759.jpg?w=1380&t=st=1685668111~exp=1685668711~hmac=8ff95cf3dbbb968076a742e3b1dc2d2d6668641d380f6114b67271bb60b2a643"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-ciencia-ficcion-futurista-moderno_35913-2150.jpg?w=1380&t=st=1685668130~exp=1685668730~hmac=2acf33bc076ed04fa0e3c23add034f652567c5df93cc9ca5b802757b27d50a15"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/pared-madera-oscura_1194-7058.jpg?w=1380&t=st=1685668177~exp=1685668777~hmac=265eae95856023e9f2a6d44dedafbbf6b392ffdbcafd11e33e95c15b9fdcb9eb"); */
+  /* background-image: url("https://img.freepik.com/foto-gratis/fondo-producto-estampado-tablones-madera_53876-165428.jpg?size=626&ext=jpg&ga=GA1.1.2085227030.1682436509&semt=ais"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

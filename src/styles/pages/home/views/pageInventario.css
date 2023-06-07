@@ -1,0 +1,194 @@
+.container_inventario {
+  width: 100%;
+}
+.container_inventario .titulo {
+  color: red;
+  font-size: 28px;
+  text-align: start;
+  margin: 20px;
+}
+.container_tabla {
+  border: solid 1px black;
+}
+.container_button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.container_button .button {
+  width: 7%;
+  border: 1px solid black;
+  background-color: #00910c;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+.container_button .button img {
+  width: 15%;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #e6e4e4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+thead th {
+  font-family: "Maven Pro", sans-serif;
+  background-color: #00910c;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  padding: 5px;
+}
+thead th p {
+  width: 50%;
+  text-align: center;
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 5px;
+}
+tbody td {
+  width: 100%;
+  font-family: "Maven Pro", sans-serif;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  border-bottom: 0.5px solid rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-between;
+}
+tbody td p {
+  width: 50%;
+  text-align: center;
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 5px;
+}
+.btn-ver,
+.btn-editar,
+.btn-eliminar {
+  padding: 4px 12px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+.btn-ver a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 17px;
+}
+.btn-ver {
+  background-color: #00910c;
+}
+.btn-editar {
+  background-color: #001aff;
+}
+
+.btn-eliminar {
+  background-color: #ff1900;
+  margin-right: 50px;
+}
+.btn-ver:hover,
+.btn-editar:hover,
+.btn-eliminar:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1300px) {
+  .container_button .button {
+    width: 8%;
+  }
+  .container_button .button img {
+    width: 22%;
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container_button .button {
+    width: 12%;
+  }
+  .container_button .button img {
+    width: 22%;
+  }
+  .btn-eliminar {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container_button h3 {
+    margin-top: 15px;
+  }
+
+  .container_button .button {
+    width: 25%;
+    font-size: 13px;
+  }
+  .container_button .button img {
+    width: 18%;
+  }
+  .container_inventario .titulo {
+    font-size: 22px;
+    margin: 10px;
+  }
+  .btn-ver,
+  .btn-editar,
+  .btn-eliminar {
+    padding: 2px 10px;
+    margin-right: 3px;
+    font-size: 11px;
+  }
+  .btn-ver a {
+    font-size: 13px;
+  }
+  .btn-eliminar {
+    margin-right: 10px;
+  }
+  thead th p {
+    font-size: 15px;
+    margin: 3px;
+  }
+  tbody td p {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container_button .button img {
+    width: 19%;
+  }
+  .container_button .button {
+    width: 30%;
+    font-size: 11px;
+  }
+  .container_inventario .titulo {
+    font-size: 20px;
+  }
+  .btn-ver,
+  .btn-editar,
+  .btn-eliminar {
+    font-size: 10px;
+  }
+  .btn-ver a {
+    font-size: 11px;
+  }
+
+  thead th p {
+    font-size: 12px;
+    margin: 3px;
+  }
+  tbody td p {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,134 @@
+.register-form-container {
+  width: 120%;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  border: 1px solid white;
+  padding: 15px;
+  border-radius: 20px;
+}
+.register-form {
+  display: block;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+.form-groups {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-groups label {
+  font-family: "Maven Pro", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  width: 20%;
+  color: red;
+  margin: 20px;
+}
+
+.form-groups input[type="text"] {
+  font-family: "Maven Pro", sans-serif;
+  height: 40px;
+  width: 100%;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.form-groups select {
+  font-family: "Maven Pro", sans-serif;
+  height: 40px;
+  width: 100%;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.submit-form- {
+  font-family: "Maven Pro", sans-serif;
+  letter-spacing: 1px;
+  width: 100%;
+  padding: 12px 60px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: #00910c;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.5s ease-out;
+  text-decoration: none;
+}
+
+.submit-form-:hover {
+  background-color: #087211;
+}
+
+@media screen and (max-width: 1300px) {
+}
+
+@media screen and (max-width: 900px) {
+}
+
+@media screen and (max-width: 450px) {
+  .register-form {
+    width: 105%;
+    display: block;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .form-groups {
+    margin-bottom: 20px;
+  }
+  .form-groups label {
+    font-size: 15px;
+    margin-left: -20px;
+  }
+
+  .form-groups input[type="text"] {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .form-groups select {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  .submit-form- {
+    padding: 12px 40px;
+    font-size: 14px;
+    margin-left: -30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .form-groups label {
+    font-size: 13px;
+    margin-left: -30px;
+  }
+
+  .form-groups input[type="text"] {
+    height: 35px;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+
+  .form-groups select {
+    height: 35px;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+  .submit-form- {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}

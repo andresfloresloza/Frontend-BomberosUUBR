@@ -1,0 +1,820 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+.landingPage {
+  font-family: "Bebas Neue", sans-serif;
+  background-color: yellow !important;
+}
+
+.hero {
+  background-image: linear-gradient(
+      to right,
+      #434343 -100%,
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    url("../../../assets/landingPage/fondo.jpg");
+  width: 100%;
+  height: 850px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
+.logo-cont {
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
+}
+.logo-cont > img {
+  width: 12%;
+  margin-left: 30px;
+}
+.textos-hero {
+  height: 350px;
+  color: yellow;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.textos-hero h1 {
+  width: 50px;
+  font-size: 120px;
+  text-align: start;
+  line-height: 80%;
+}
+.textos-hero h2 {
+  font-size: 265px;
+  margin-left: 450px;
+  margin-top: 15px;
+}
+.svg-hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.contenedor,
+.wave-contenedor {
+  width: 100%;
+  max-width: 1500px;
+  overflow: hidden;
+  margin: auto;
+  padding: 0 0 80px 0;
+  border: white;
+}
+.contenedor {
+  padding: 30px 0;
+}
+.titulo {
+  font-weight: bold;
+  font-size: 80px;
+  text-align: center;
+  color: red;
+}
+.parrafoCurso {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+}
+.titulo.left {
+  text-align: left;
+}
+.titulo.right {
+  text-align: right;
+}
+.website {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 70px;
+}
+.website img {
+  width: 45%;
+  border-radius: 10px;
+}
+.website .contenedor-textos-main {
+  width: 50%;
+}
+.contenedor-textos-main h3 {
+  font-family: "Maven Pro", sans-serif;
+  font-size: 23px;
+  margin-top: -10px;
+  text-align: left;
+  text-transform: uppercase;
+}
+.contenedor-textos-main p {
+  font-family: "Maven Pro", sans-serif;
+  font-size: 20px;
+}
+.parrafo {
+  text-align: justify;
+  margin-bottom: 20px;
+  font-family: "Maven Pro", sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
+a {
+  font-family: "Maven Pro", sans-serif;
+}
+.especialidad {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Maven Pro", sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.info {
+  background-image: linear-gradient(
+      to right,
+      #434343 -100%,
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    url("../../../assets/landingPage/fondo.jpg");
+  color: white;
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.image-container-novedades {
+  display: flex;
+  justify-content: center;
+}
+
+.image-container-novedades img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+  cursor: pointer;
+}
+.content-cards {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.content-cards-redes {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.content-cards-redes h2 {
+  margin-top: 20px;
+}
+.card {
+  width: 23%;
+  height: 250px !important;
+  text-align: center;
+  height: 150px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+  transform: scale(1);
+  transition: transform 0.6s;
+  border-radius: 15px;
+}
+.card .contenido {
+  font-size: 20px;
+  width: auto;
+  margin: 15px;
+  text-align: center;
+}
+.card:hover {
+  box-shadow: 0 0 6px 0 rgba(255, 0, 0, 0.8);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.card img {
+  margin-top: 20px;
+  width: 25%;
+  height: 33%;
+}
+.card_redes i {
+  margin: 30px 0 20px 0;
+  color: #434343;
+  font-size: 50px;
+}
+.card_redes a {
+  text-decoration: none;
+  color: white;
+}
+.card_redes a:hover,
+.card_redes i:hover {
+  color: white;
+}
+.content-cards-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.card_info {
+  width: 100%;
+  text-align: center;
+}
+.card_donacion {
+  width: 100%;
+  text-align: center;
+  justify-content: space-evenly;
+}
+.card_info:hover {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+.card_info p {
+  font-size: 20px;
+  margin-top: 15px;
+}
+.card_info h2 {
+  color: rgb(255, 0, 0);
+  text-align: start;
+}
+.card_info .emergencia {
+  font-family: "Maven Pro", sans-serif;
+  color: rgb(255, 0, 0);
+  text-align: start;
+}
+.card_donacion h2 {
+  font-size: 45px;
+  color: rgb(255, 0, 0);
+  margin-bottom: 20px;
+}
+.card_donacion a {
+  font-weight: bold;
+  display: inline-block;
+  text-decoration: none;
+  background: #434343;
+  padding: 12px 50px;
+  border-radius: 10px;
+  color: white;
+}
+.card_donacion a:hover {
+  background: #636363;
+}
+/*---------------------GALERIA SLIDER----------------------------*/
+.galeria {
+  background: white;
+}
+.galeria-slide {
+  display: flex;
+  animation: slide 30s linear infinite;
+}
+.galeria-slide > img {
+  width: 50%;
+  height: 400px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-308%);
+  }
+}
+
+/*---------------------------------------------------------------*/
+.last-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.contenedor-galeria {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenedor-galeria .galeria-novedades {
+  margin-left: 80px;
+}
+.galeria-novedades {
+  --g: 8px;
+  --s: 400px;
+  display: grid;
+  border-radius: 10px;
+}
+.galeria-novedades > img {
+  grid-area: 1/1;
+  width: 500px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+  transform: translate(var(--_x, 0), var(--_y, 0));
+  cursor: pointer;
+  z-index: 0;
+  transition: 0.3s, z-index 0s 0.3s;
+}
+.galeria-novedades img:hover {
+  --_i: 1;
+  z-index: 1;
+  transition: transform 0.2s, clip-path 0.3s 0.2s, z-index 0s;
+}
+.galeria-novedades:hover img {
+  transform: translate(0, 0);
+}
+.galeria-novedades > img:nth-child(1) {
+  clip-path: polygon(
+    50% 50%,
+    calc(50% * var(--_i, 0)) calc(120% * var(--_i, 0)),
+    0 calc(100% * var(--_i, 0)),
+    0 0,
+    100% 0,
+    100% calc(100% * var(--_i, 0)),
+    calc(100% - 50% * var(--_i, 0)) calc(120% * var(--_i, 0))
+  );
+  --_y: calc(-1 * var(--g));
+}
+.galeria-novedades > img:nth-child(2) {
+  clip-path: polygon(
+    50% 50%,
+    calc(100% - 120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+    calc(100% - 100% * var(--_i, 0)) 0,
+    100% 0,
+    100% 100%,
+    calc(100% - 100% * var(--_i, 0)) 100%,
+    calc(100% - 120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+  );
+  --_x: var(--g);
+}
+.galeria-novedades > img:nth-child(3) {
+  clip-path: polygon(
+    50% 50%,
+    calc(100% - 50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0)),
+    100% calc(100% - 120% * var(--_i, 0)),
+    100% 100%,
+    0 100%,
+    0 calc(100% - 100% * var(--_i, 0)),
+    calc(50% * var(--_i, 0)) calc(100% - 120% * var(--_i, 0))
+  );
+  --_y: var(--g);
+}
+.galeria-novedades > img:nth-child(4) {
+  clip-path: polygon(
+    50% 50%,
+    calc(120% * var(--_i, 0)) calc(50% * var(--_i, 0)),
+    calc(100% * var(--_i, 0)) 0,
+    0 0,
+    0 100%,
+    calc(100% * var(--_i, 0)) 100%,
+    calc(120% * var(--_i, 0)) calc(100% - 50% * var(--_i, 0))
+  );
+  --_x: calc(-1 * var(--g));
+}
+
+/*---------------------------------------------------------------*/
+
+footer {
+  background: black;
+  color: white;
+}
+
+/*LAPTOP MAC*/
+
+@media screen and (max-width: 1300px) {
+  .contenedor {
+    padding: 30px 50px;
+  }
+  .website {
+    padding: 50px 50px;
+  }
+  .hero {
+    height: 700px;
+  }
+  .logo-cont {
+    margin-top: 120px;
+  }
+  .textos-hero h1 {
+    font-size: 100px;
+  }
+  .textos-hero h2 {
+    font-size: 210px;
+    margin-left: 370px;
+    margin-top: 15px;
+  }
+  .card_donacion {
+    margin-top: 70px;
+  }
+  .card {
+    height: auto;
+  }
+  .card .contenido {
+    font-size: 17px;
+  }
+  .card img {
+    margin-top: 25px;
+    width: 25%;
+    height: 30%;
+  }
+  .galeria-slide > img {
+    width: 50%;
+    height: 350px;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-367%);
+    }
+  }
+  .contenedor-textos-main h3 {
+    font-size: 20px;
+  }
+  .contenedor-textos-main p {
+    font-size: 18px;
+  }
+}
+
+/*IPAD Y DISPOSITIVOS MOVILES*/
+
+@media screen and (max-width: 900px) {
+  .contenedor {
+    padding: 50px 20px;
+  }
+  .hero {
+    height: 580px;
+  }
+  .logo-cont {
+    margin-top: 100px;
+  }
+
+  .logo-cont img {
+    width: 15%;
+  }
+
+  .textos-hero h1 {
+    font-size: 60px;
+  }
+  .textos-hero h2 {
+    font-size: 140px;
+    margin-left: 210px;
+    margin-top: 10px;
+  }
+  .textos-hero a {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .titulo {
+    font-size: 60px;
+    font-weight: bold;
+  }
+  .contenedor-textos-main h3 {
+    text-align: center;
+    font-size: 22px;
+  }
+  .contenedor-textos-main p {
+    text-align: justify;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .titulo.left {
+    text-align: center;
+  }
+  .contenedor-parrafos {
+    margin: 30px;
+  }
+  .parrafo {
+    text-align: justify;
+    margin: 10px 10px;
+    font-size: 20px;
+  }
+  .website img {
+    width: 80%;
+  }
+  .info p {
+    text-align: justify;
+    font-size: 22px;
+  }
+  .website {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+  .website .contenedor-textos-main {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .galeria-slide > img {
+    width: 80%;
+    height: 300px;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-567%);
+    }
+  }
+  .parrafoCurso {
+    font-size: 30px;
+  }
+  .card {
+    width: 35%;
+    height: 250px !important;
+    margin-bottom: 30px;
+  }
+  .card .contenido {
+    font-size: 16px;
+  }
+  .card img {
+    margin-top: 25px;
+    width: 30%;
+    height: 30%;
+  }
+  .content-cards-info {
+    flex-wrap: wrap;
+  }
+  .card_redes {
+    width: 30%;
+  }
+  .card_redes i {
+    font-size: 50px;
+  }
+  .card_redes h3 {
+    font-size: 15px;
+  }
+  .content-cards-info {
+    margin-top: 100px;
+  }
+  .card_info {
+    margin-top: -130px;
+  }
+  .card_donacion {
+    text-align: start;
+  }
+  .galeria {
+    padding: 0px 0px;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contenedor-galeria {
+    display: block;
+  }
+  .contenedor-galeria .galeria-novedades {
+    margin-left: 180px;
+    justify-content: center;
+  }
+  .galeria-novedades > img {
+    width: 70%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .website{
+    padding: 50px 40px;
+  }
+  .contenedor {
+    padding: 20px 20px;
+  }
+  .hero {
+    height: 550px;
+  }
+  .logo-cont {
+    margin-top: 150px;
+  }
+  .logo-cont > img {
+    width: 20%;
+    margin-left: 5px;
+  }
+  .textos-hero h1 {
+    font-size: 40px;
+  }
+  .textos-hero h2 {
+    font-size: 90px;
+    margin-left: 120px;
+    margin-top: 5px;
+  }
+  .textos-hero {
+    height: 150px;
+  }
+  .titulo {
+    font-size: 35px;
+  }
+  .contenedor-textos-main h3 {
+    font-size: 16px;
+  }
+  .contenedor-textos-main p {
+    font-size: 15px;
+  }
+  .contenedor-parrafos {
+    margin: 0px;
+  }
+  .parrafo {
+    margin: 0;
+    font-size: 14px;
+  }
+  .website img {
+    width: 105%;
+  }
+  .info {
+    height: 210px;
+  }
+  .info p {
+    font-size: 16px;
+  }
+  .galeria-slide > img {
+    width: 90%;
+    height: 200px;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-750%);
+    }
+  }
+  .parrafoCurso {
+    font-size: 25px;
+  }
+
+  .card {
+    width: 43.5%;
+    height: 200px !important;
+    margin: 10px;
+  }
+  .card .contenido {
+    margin-top: 15px;
+    font-size: 13.5px;
+  }
+  .card img {
+    width: 35%;
+    height: 25%;
+  }
+  .card h2 {
+    font-size: 15px;
+  }
+  .especialidad {
+    font-size: 17px;
+  }
+  .card_redes {
+    width: 30%;
+  }
+  .card_redes i {
+    font-size: 30px;
+  }
+  .card_redes h3 {
+    font-size: 10px;
+  }
+  .card_info {
+    margin-top: -80px;
+  }
+  .card_info h2 {
+    text-align: center;
+  }
+  .card_donacion {
+    text-align: center;
+    font-size: 10px;
+  }
+  .card_info .emergencia {
+    font-size: 17px;
+  }
+  .card_donacion h2 {
+    font-size: 35px;
+  }
+  .galeria {
+    padding: 0px 0px;
+  }
+  .contenedor-galeria {
+    margin: 0px 20px;
+  }
+  .last-section {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+  .last-section img {
+    width: 80%;
+  }
+  .contenedor-galeria .galeria-novedades {
+    margin-left: 0;
+    margin-top: 30px;
+    justify-content: center;
+    width: 100%;
+  }
+  .galeria-novedades > img {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .contenedor {
+    padding: 30px 20px;
+  }
+  .hero {
+    height: 450px;
+  }
+  .logo-cont {
+    margin-top: 80px;
+  }
+  .logo-cont > img {
+    width: 20%;
+    margin-left: 2px;
+  }
+  .textos-hero h1 {
+    font-size: 35px;
+  }
+  .textos-hero h2 {
+    font-size: 80px;
+    margin-left: 95px;
+    margin-top: 2px;
+  }
+  .textos-hero {
+    height: 120px;
+  }
+  .titulo {
+    font-size: 32px;
+  }
+  .contenedor-textos-main h3,
+  p {
+    font-size: 15px;
+  }
+  .contenedor-parrafos {
+    margin: 10px;
+  }
+  .parrafo {
+    margin: 5px -20px;
+    font-size: 13px;
+  }
+  .info {
+    height: 180px;
+  }
+  .info p {
+    font-size: 14px;
+  }
+  .parrafoCurso {
+    font-size: 18px;
+  }
+  .galeria-slide > img {
+    width: 80%;
+    height: 130px;
+    margin-bottom: -20px;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-690%);
+    }
+  }
+  .card {
+    width: 42.5%;
+    height: 180px !important;
+  }
+
+  .card .contenido {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+  .card h2 {
+    font-size: 15px !important;
+    margin-top: 10px;
+  }
+  .card img {
+    width: 30%;
+    height: 20%;
+  }
+  .card_redes i {
+    font-size: 30px;
+  }
+  .card_redes h3 {
+    font-size: 9px;
+  }
+  .card_info {
+    margin-top: -70px;
+  }
+  .card_info h2 {
+    text-align: center;
+  }
+  .card_donacion h2 {
+    text-align: center;
+    font-size: 25px;
+  }
+  .card_donacion a {
+    padding: 12px 20px;
+    font-size: 10px;
+  }
+  .card_info .emergencia {
+    font-size: 15px;
+  }
+  .card h2 {
+    font-size: 18px;
+  }
+  .especialidad {
+    font-size: 13px;
+  }
+}

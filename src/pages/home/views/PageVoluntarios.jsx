@@ -47,6 +47,7 @@ const PageVoluntarios = ({ Token }) => {
       LEGAJO: user.legajo,
       "TIPO DE SANGRE": user.blood_type,
       "NOMBRE COMPLETO": `${user.first_name} ${user.last_name}`,
+      "CORREO ELECTRÓNICO": user.username,
       GRADO: user.grade,
       DIRECCIÓN: user.address,
       TELÉFONO: user.phone_number,

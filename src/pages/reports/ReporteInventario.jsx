@@ -139,6 +139,7 @@ const ReporteInventario = ({ Token }) => {
                 <View style={styles.tableRow}>
                   <Text style={styles.tableHeader1}>-</Text>
                   <Text style={styles.tableHeader2}>CÓDIGO</Text>
+                  <Text style={styles.tableHeader2}>ESTADO</Text>
                   <Text style={styles.tableHeader2}>MARCA</Text>
                   <Text style={styles.tableHeader2}>MATERIAL</Text>
                   <Text style={styles.tableHeader}>INDUSTRIA</Text>
@@ -151,6 +152,11 @@ const ReporteInventario = ({ Token }) => {
                   <View key={index} style={styles.tableRow}>
                     <Text style={styles.tableHeader1}>{index + 1}</Text>
                     <Text style={styles.tableHeader2}>{producto.codigo}</Text>
+                    {producto.estado ? (
+                  <Text style={styles.tableHeader2}>Donación</Text>
+                ) : (
+                  <Text style={styles.tableHeader2}>Comprado</Text>
+                )}
                     <Text style={styles.tableHeader2}>{producto.marca}</Text>
                     <Text style={styles.tableHeader2}>{producto.material}</Text>
                     <Text style={styles.tableHeader}>{producto.industria}</Text>

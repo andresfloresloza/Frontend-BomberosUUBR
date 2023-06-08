@@ -83,6 +83,7 @@ const PageProduct = ({ Token }) => {
       const filteredData = EppEstructural_Forestal.map((product,index) => ({
         "N°": index+1,
         CÓDIGO: product.codigo,
+        ESTADO: product.estado  ? "Donación" : "Comprado",      
         MARCA: product.marca,
         INDUSTRIA: product.industria,
         TALLA: product.talla,
@@ -108,6 +109,7 @@ const PageProduct = ({ Token }) => {
       const filteredData = EppEstructural_Forestal.map((product,index) => ({
         "N°": index+1,
         CÓDIGO: product.codigo,
+        ESTADO: product.estado  ? "Donación" : "Comprado",      
         MARCA: product.marca,
         INDUSTRIA: product.industria,
         COLOR: product.color,

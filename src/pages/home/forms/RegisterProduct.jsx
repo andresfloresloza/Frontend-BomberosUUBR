@@ -16,6 +16,7 @@ import {
 const RegisterProduct = ({ onClose, Token, product }) => {
   const fileRef = useRef(null);
   const [codigo, setCodigo] = useState("");
+  const [estado, setEstado] = useState(true);
   const [marca, setMarca] = useState("");
   const [industria, setIndustria] = useState("");
   const [talla, setTalla] = useState("");
@@ -63,6 +64,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     ) {
       getDetailEppEstructuralForestal(Token.access, id).then((response) => {
         setCodigo(response.data.epp_estructural_forestal.codigo);
+        setEstado(response.data.epp_estructural_forestal.estado);
         setMarca(response.data.epp_estructural_forestal.marca);
         setIndustria(response.data.epp_estructural_forestal.industria);
         setTalla(response.data.epp_estructural_forestal.talla);
@@ -82,6 +84,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     } else {
       getDetailHerramientasAccesorios(Token.access, id).then((response) => {
         setCodigo(response.data.herramienta_accesorio.codigo);
+        setEstado(response.data.herramienta_accesorio.estado);
         setMarca(response.data.herramienta_accesorio.marca);
         setIndustria(response.data.herramienta_accesorio.industria);
         setTalla(response.data.herramienta_accesorio.talla);
@@ -107,6 +110,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     ) {
       postEppEstructuralForestal(Token.access, {
         codigo: codigo,
+        estado:estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -131,6 +135,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     } else {
       postHerramientasAccesorios(Token.access, {
         codigo: codigo,
+        estado:estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -164,6 +169,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     ) {
       putEppEstructuralForestal(Token.access, product.id, {
         codigo: codigo,
+        estado:estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -186,6 +192,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     } else {
       putHerramientasAccesorios(Token.access, product.id, {
         codigo: codigo,
+        estado:estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -278,6 +285,16 @@ const RegisterProduct = ({ onClose, Token, product }) => {
                   required
                   onChange={(e) => setCodigo(e.target.value)}
                 />
+              </div>
+              <div className="form-groups-user">
+                <label htmlFor="name">Estado:</label>
+                <select
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                >
+                  <option value="true">Donación</option>
+                  <option value="false">Comprado</option>
+                </select>
               </div>
               <div className="form-groups-user">
                 <label htmlFor="name">Marca:</label>

@@ -2,7 +2,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
 import "../../../styles/pages/home/views/pageInventario.css";
-import { ROUTER_ACCESORIOS, ROUTER_EPP_ESTRUCTURAL, ROUTER_EPP_FORESTAL, ROUTER_HERRAMIENTAS } from "../../../config/Constant";
+import {
+  ROUTER_ACCESORIOS,
+  ROUTER_EPP_ESTRUCTURAL,
+  ROUTER_EPP_FORESTAL,
+  ROUTER_HERRAMIENTAS,
+  ROUTER_LOGIN_FORM,
+} from "../../../config/Constant";
 import ModalForm from "../../../components/ModalForm";
 import RegisterTypeProduct from "../forms/RegisterTypeProduct";
 import DeleteObject from "../../../components/DeleteObject";
@@ -11,15 +17,16 @@ import {
   getListTypeProduct,
 } from "../../../services/TypeProductsService";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../../redux/loginSlice";
 
 const PageInventario = ({ Token }) => {
+  const dispatch = useDispatch();
+  const history = useNavigate();
   const [listProducts, setListProduct] = useState([]);
   const [modalAñadir, setModalAñadir] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [product, setProduct] = useState({});
-  const navigate = useNavigate();
-
-
 
   const EppEstructural = listProducts.filter(
     (listProducts) => listProducts.category === "EPP Estructural"
@@ -40,9 +47,16 @@ const PageInventario = ({ Token }) => {
 
   //------------------CARGAR LISTA TIPO PRODUCTO--------------------------------
   const getList = () => {
-    getListTypeProduct(Token.access).then((response) => {
-      setListProduct(response.list_type_product);
-    });
+    getListTypeProduct(Token.access)
+      .then((response) => {
+        setListProduct(response.list_type_product);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
+      });
   };
   //------------------------------------------------------------------------
 
@@ -116,7 +130,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            navigate(ROUTER_EPP_ESTRUCTURAL, {
+                            history(ROUTER_EPP_ESTRUCTURAL, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -174,7 +188,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            navigate(ROUTER_EPP_FORESTAL, {
+                            history(ROUTER_EPP_FORESTAL, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -232,7 +246,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            navigate(ROUTER_HERRAMIENTAS, {
+                            history(ROUTER_HERRAMIENTAS, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -290,7 +304,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            navigate(ROUTER_ACCESORIOS, {
+                            history(ROUTER_ACCESORIOS, {
                               state: {
                                 id: list.id,
                                 name: list.name,

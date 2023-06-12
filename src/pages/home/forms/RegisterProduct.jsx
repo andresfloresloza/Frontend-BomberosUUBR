@@ -12,6 +12,7 @@ import {
   putHerramientasAccesorios,
   saveImageHerramientasAccesorios,
 } from "../../../services/HerramientasAccesorios";
+import { toast } from "react-toastify";
 
 const RegisterProduct = ({ onClose, Token, product }) => {
   const fileRef = useRef(null);
@@ -110,7 +111,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     ) {
       postEppEstructuralForestal(Token.access, {
         codigo: codigo,
-        estado:estado,
+        estado: estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -128,14 +129,14 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           onClose();
         })
         .catch((error) => {
-          console.log(
-            "Error al enviar enviar datos, por favor intente nuevamente"
+          toast.error(
+            "Error al enviar enviar datos, verifique e intente nuevamente"
           );
         });
     } else {
       postHerramientasAccesorios(Token.access, {
         codigo: codigo,
-        estado:estado,
+        estado: estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -153,8 +154,8 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           onClose();
         })
         .catch((error) => {
-          console.log(
-            "Error al enviar enviar datos, por favor intente nuevamente"
+          toast.error(
+            "Error al enviar enviar datos, verifique e intente nuevamente"
           );
         });
     }
@@ -169,7 +170,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     ) {
       putEppEstructuralForestal(Token.access, product.id, {
         codigo: codigo,
-        estado:estado,
+        estado: estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -187,12 +188,14 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           onClose();
         })
         .catch((error) => {
-          alert("Error al enviar enviar datos, por favor intente nuevamente");
+          toast.error(
+            "Error al enviar enviar datos, verifique e intente nuevamente"
+          );
         });
     } else {
       putHerramientasAccesorios(Token.access, product.id, {
         codigo: codigo,
-        estado:estado,
+        estado: estado,
         marca: marca,
         industria: industria,
         talla: talla,
@@ -210,7 +213,9 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           onClose();
         })
         .catch((error) => {
-          alert("Error al enviar enviar datos, por favor intente nuevamente");
+          toast.error(
+            "Error al enviar enviar datos, verifique e intente nuevamente"
+          );
         });
     }
   };
@@ -230,13 +235,11 @@ const RegisterProduct = ({ onClose, Token, product }) => {
       saveImageEppEstructuralForestal(Token.access, id, data)
         .then((response) => {})
         .catch((error) => {
-          console.log(error);
         });
     } else {
       saveImageHerramientasAccesorios(Token.access, id, data)
         .then((response) => {})
         .catch((error) => {
-          console.log(error);
         });
     }
   };

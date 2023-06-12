@@ -1,5 +1,6 @@
 import axios from "axios"
 import { DOMAIN } from "../config/Constant";
+import { toast } from "react-toastify";
 
 
 export const postLogin = (username, password) => {
@@ -9,12 +10,12 @@ export const postLogin = (username, password) => {
             password,
         }).then((response) => {
             resolve(response.data);
-            if(response.status === 400){
-                alert("Contraseña demasiado corta. Minimo 8 caracteres.")
-            }
         })
         .catch((error) => {
-            alert("Usuario o Contraseña Incorrecto!");
-        });
+            if (error.response.status === 401) {
+                toast.error("Usuario o Contraseña Incorrecto!");
+              }
+            });
+
     });
 }

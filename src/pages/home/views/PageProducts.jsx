@@ -12,6 +12,7 @@ import {
 } from "../../../services/EppEstructuralForestal";
 import {
   DOMAIN_IMAGE,
+  ROUTER_LOGIN_FORM,
   ROUTER_REPORTE_INVENTARIO,
 } from "../../../config/Constant";
 import {
@@ -20,9 +21,12 @@ import {
 } from "../../../services/HerramientasAccesorios";
 import DeleteObject from "../../../components/DeleteObject";
 import * as XLSX from "xlsx";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../../redux/loginSlice";
 
 const PageProduct = ({ Token }) => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const history = useNavigate();
   const location = useLocation();
   const [modal, setModal] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -32,6 +36,7 @@ const PageProduct = ({ Token }) => {
   const EppEstructural_Forestal = listProducts.filter(
     (listProducts) => listProducts.type_product === location.state.id
   );
+
   useEffect(() => {
     getList();
   }, []);
@@ -43,14 +48,28 @@ const PageProduct = ({ Token }) => {
       location.state.category === "EPP Forestal"
     ) {
       console.log("Entre a: " + location.state.category);
-      getListEppEstructuralForestal(Token.access).then((response) => {
-        setListProduct(response.list_epp_estructural_forestal);
-      });
+      getListEppEstructuralForestal(Token.access)
+        .then((response) => {
+          setListProduct(response.list_epp_estructural_forestal);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            dispatch(userLogout(Token));
+            history(ROUTER_LOGIN_FORM);
+          }
+        });
     } else {
       console.log("Entre a: " + location.state.category);
-      getListHerramientasAccesorios(Token.access).then((response) => {
-        setListProduct(response.list_herramienta_accesorio);
-      });
+      getListHerramientasAccesorios(Token.access)
+        .then((response) => {
+          setListProduct(response.list_herramienta_accesorio);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            dispatch(userLogout(Token));
+            history(ROUTER_LOGIN_FORM);
+          }
+        });
     }
   };
   //----------------------------------------------------------------------------
@@ -80,10 +99,10 @@ const PageProduct = ({ Token }) => {
       location.state.category === "EPP Estructural" ||
       location.state.category === "EPP Forestal"
     ) {
-      const filteredData = EppEstructural_Forestal.map((product,index) => ({
-        "N°": index+1,
+      const filteredData = EppEstructural_Forestal.map((product, index) => ({
+        "N°": index + 1,
         CÓDIGO: product.codigo,
-        ESTADO: product.estado  ? "Donación" : "Comprado",      
+        ESTADO: product.estado ? "Donación" : "Comprado",
         MARCA: product.marca,
         INDUSTRIA: product.industria,
         TALLA: product.talla,
@@ -106,10 +125,10 @@ const PageProduct = ({ Token }) => {
         location.state.name + "_" + location.state.category + ".xlsx"
       );
     } else {
-      const filteredData = EppEstructural_Forestal.map((product,index) => ({
-        "N°": index+1,
+      const filteredData = EppEstructural_Forestal.map((product, index) => ({
+        "N°": index + 1,
         CÓDIGO: product.codigo,
-        ESTADO: product.estado  ? "Donación" : "Comprado",      
+        ESTADO: product.estado ? "Donación" : "Comprado",
         MARCA: product.marca,
         INDUSTRIA: product.industria,
         COLOR: product.color,
@@ -169,7 +188,7 @@ const PageProduct = ({ Token }) => {
           <button className="btn-reporte">
             <a
               onClick={() => {
-                navigate(ROUTER_REPORTE_INVENTARIO, {
+                history(ROUTER_REPORTE_INVENTARIO, {
                   state: {
                     id: location.state.id,
                     name: location.state.name,

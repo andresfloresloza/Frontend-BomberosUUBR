@@ -15,13 +15,9 @@ const LoginForm = () => {
   const iniciar_sesion = () => {
     postLogin(email, password)
       .then((response) => {
-        console.log(response);
         dispatch(userLogin(response));
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          window.alert("Usuario o Contraseña Incorrecto!");
-        }
       });
   };
   //------------------------------------------------------------

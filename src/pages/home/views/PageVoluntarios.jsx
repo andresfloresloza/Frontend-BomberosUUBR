@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "../../../styles/pages/home/views/pageVoluntarios.css";
 import {
   DOMAIN_IMAGE,
+  ROUTER_LOGIN_FORM,
   ROUTER_REPORTE_VOLUNTARIOS,
 } from "../../../config/Constant";
 import ModalForm from "../../../components/ModalForm";
@@ -11,8 +12,13 @@ import RegisterForm from "../../auth/RegisterForm";
 import DeleteObject from "../../../components/DeleteObject";
 import { deleteUser, getListUsers } from "../../../services/UsuariosService";
 import * as XLSX from "xlsx";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userLogout } from "../../../redux/loginSlice";
 
 const PageVoluntarios = ({ Token }) => {
+  const dispatch = useDispatch();
+  const history = useNavigate();
   const [listaUsers, setListaUsers] = useState([]);
   const [modalAñadir, setModalAñadir] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -25,9 +31,19 @@ const PageVoluntarios = ({ Token }) => {
 
   //---------------------CARGAR LISTA USUARIOS------------------------------
   const getUsers = () => {
-    getListUsers(Token.access).then((response) => {
-      setListaUsers(response.list_users);
-    });
+    getListUsers(Token.access)
+      .then((response) => {
+        const sortedUsers = response.list_users.sort(
+          (a, b) => a.legajo - b.legajo
+        );
+        setListaUsers(sortedUsers);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
+      });
   };
   //-------------------------------------------------------------------------
 

@@ -6,6 +6,7 @@ import {
   postTypeProduct,
   putTypeProduct,
 } from "../../../services/TypeProductsService";
+import { toast } from "react-toastify";
 
 const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
   const [name, setName] = useState("");
@@ -30,11 +31,10 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
   const create_type_product = async () => {
     postTypeProduct(Token.access, { name: name, category: category })
       .then((response) => {
-        console.log(response.data);
         onClose();
       })
       .catch((error) => {
-        alert("Este producto ya existe en esta categoria");
+        toast.error("Este producto ya existe en la categoria " + category);
       });
   };
   //------------------------------------------------------------------------
@@ -43,11 +43,10 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
   const update_type_product = async (id) => {
     putTypeProduct(Token.access, id, { name: name, category: category })
       .then((response) => {
-        console.log(response.data);
         onClose();
       })
       .catch((error) => {
-        alert("Este producto ya existe en esta categoria");
+        toast.error("Este producto ya existe en la categoria " + category);
       });
   };
   //------------------------------------------------------------------------

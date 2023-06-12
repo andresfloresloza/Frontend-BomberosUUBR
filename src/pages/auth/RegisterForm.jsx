@@ -6,6 +6,7 @@ import {
   saveImageUser,
 } from "../../services/UsuariosService";
 import "../../styles/pages/auth/registerForm.css";
+import { toast } from "react-toastify";
 const RegisterForm = ({ onClose, Token, object }) => {
   const [user, setUser] = useState({});
   const [image, setImage] = useState("");
@@ -16,7 +17,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
   const [last_name, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
-  const [blood_type, setBloodType] = useState("");
+  const [blood_type, setBloodType] = useState("(A+)");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,14 +39,17 @@ const RegisterForm = ({ onClose, Token, object }) => {
   //---------------------VALIDACION DE CONTRASEÑA---------------------------
   const validatePassword = () => {
     let isValid = true;
+
     if (password !== "" && confirmPassword !== "") {
       if (password !== confirmPassword) {
         isValid = false;
-        window.alert("La Contraseñas no coinciden");
+        toast.error("Las contraseñas no coinciden");
       }
     }
+
     return isValid;
   };
+
   //------------------------------------------------------------------------
 
   //---------------------CARGAR PERFIL USUARIO------------------------------
@@ -90,9 +94,11 @@ const RegisterForm = ({ onClose, Token, object }) => {
           onClose();
         })
         .catch((error) => {
-          console.log(
-            "Error al enviar enviar datos, por favor intente nuevamente"
-          );
+          if (error.response.status === 400) {
+            toast.error(
+              "Error al enviar enviar datos, verifique e intente nuevamente"
+            );
+          }
         });
     }
   };
@@ -120,7 +126,11 @@ const RegisterForm = ({ onClose, Token, object }) => {
           onClose();
         })
         .catch((error) => {
-          alert("Error al enviar enviar datos, por favor intente nuevamente");
+          if (error.response.status === 400) {
+            toast.error(
+              "Error al enviar enviar datos, verifique e intente nuevamente"
+            );
+          }
         });
     }
   };
@@ -154,9 +164,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
 
     saveImageUser(Token.access, id, data)
       .then((response) => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
   //------------------------------------------------------------------------
 
@@ -276,14 +284,20 @@ const RegisterForm = ({ onClose, Token, object }) => {
               </div>
               <div className="form-groups-user">
                 <label htmlFor="name">Tipo Sangre:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Tipo Sangre..."
+                <select
                   value={blood_type}
-                  required
                   onChange={(e) => setBloodType(e.target.value)}
-                />
+                >
+                  <option value="(A+)">(A+)</option>
+                  <option value="(A-)">(A-)</option>
+                  <option value="(B+)">(B+)</option>
+                  <option value="(B-)">(B-)</option>
+                  <option value="(AB+)">(AB+)</option>
+                  <option value="(AB-)">(AB-)</option>
+                  <option value="(O+)">(O+)</option>
+                  <option value="(O-)">(O-)</option>
+                </select>
+                
               </div>
               <div className="form-groups-user">
                 <label htmlFor="name">Correo Electrónico:</label>

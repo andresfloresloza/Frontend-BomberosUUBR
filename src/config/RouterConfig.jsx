@@ -37,11 +37,6 @@ const RouterConfig = ({ Token }) => {
             </NoRequireAuth>
           }
         />
-        {/* <Route path={ROUTER_INICIO} element={<PageVoluntarios Token={Token} />} />
-        <Route path={ROUTER_INVENTARIO} element={<PageInventario Token={Token} />} />
-        <Route path={ROUTER_PERFIL} element={<PagePerfil Token={Token} />} />
-        <Route path={ROUTER_PRODUCTO} element={<PageProduct Token={Token} />} /> */}
-
         {Token.is_superuser ? (
           <>
             <Route

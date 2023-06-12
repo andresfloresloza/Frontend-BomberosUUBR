@@ -23,7 +23,8 @@ const ReporteVoluntarios = ({ Token }) => {
   //---------------------CARGAR LISTA USUARIOS------------------------------
   const getUsers = () => {
     getListUsers(Token.access).then((response) => {
-      setListaUsers(response.list_users);
+      const sortedUsers = response.list_users.sort((a, b) => a.legajo - b.legajo);
+    setListaUsers(sortedUsers);
     });
   };
   //---------------------CARGAR USER ENCARGADO------------------------------
@@ -120,7 +121,7 @@ const ReporteVoluntarios = ({ Token }) => {
               <Text style={styles.tableHeader2}>TELÉFONO</Text>
               <Text style={styles.tableHeader2}>ESTADO</Text>
             </View>
-            {listaUsers.map((usuario, index) => (
+            {listaUsers.sort().map((usuario, index) => (
               <View key={index} style={styles.tableRow}>
                 <Text style={styles.tableHeader1}>{index + 1}</Text>
                 <Text style={styles.tableHeader2}>{usuario.legajo}</Text>

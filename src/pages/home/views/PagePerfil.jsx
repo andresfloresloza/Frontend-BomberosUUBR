@@ -1,12 +1,20 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
-import { DOMAIN, DOMAIN_IMAGE } from "../../../config/Constant";
-import axios from "axios";
+import {
+  DOMAIN_IMAGE,
+  ROUTER_LOGIN_FORM,
+} from "../../../config/Constant";
 import "../../../styles/pages/home/views/pagePerfil.css";
 import ModalForm from "../../../components/ModalForm";
 import RegisterForm from "../../auth/RegisterForm";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userLogout } from "../../../redux/loginSlice";
+import { getDetailUser } from "../../../services/UsuariosService";
 const PagePerfil = ({ Token }) => {
+  const dispatch = useDispatch();
+  const history = useNavigate();
   const [user, setUser] = useState({});
   const [modalEditar, setModalEditar] = useState(false);
   const [amplifiedImage, setAmplifiedImage] = useState(null);
@@ -16,13 +24,17 @@ const PagePerfil = ({ Token }) => {
   }, []);
 
   //---------------------CARGAR PERFIL USUARIO------------------------------
-  const getUser = async () => {
-    try {
-      const response = await axios.get(DOMAIN + "usuario/" + Token.id);
-      setUser(response.data.data.user);
-    } catch (error) {
-      console.error(error);
-    }
+  const getUser = () => {
+    getDetailUser(Token.access, Token.id)
+      .then((response) => {
+        setUser(response.data.user);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
+      });
   };
   //------------------------------------------------------------------------
 
@@ -31,7 +43,9 @@ const PagePerfil = ({ Token }) => {
   };
   const handleCloseModalEditar = () => {
     setModalEditar(false);
-    getUser();
+    setTimeout(function () {
+      getUser();
+    }, 1000);
   };
   const handleImageClick = (imageSrc) => {
     setAmplifiedImage(imageSrc);

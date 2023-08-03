@@ -9,7 +9,7 @@ const LandingPage = () => {
       <header>
         <div className="hero">
           <div>
-            <a className="inicio_sesion" href="http://localhost:3000/login">Iniciar Sesión</a>
+            <a className="inicio_sesion" href="https://react-bomberosuubr.web.app/Login">Iniciar Sesión</a>
           </div>
           <div>
             <article className="logo-cont">

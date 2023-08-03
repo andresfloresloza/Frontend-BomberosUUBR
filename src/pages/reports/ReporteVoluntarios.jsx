@@ -134,13 +134,7 @@ const ReporteVoluntarios = ({ Token }) => {
                 <Text style={styles.tableHeader2}>{usuario.grade}</Text>
                 <Text style={styles.tableHeader}>{usuario.address}</Text>
                 <Text style={styles.tableHeader2}>{usuario.phone_number}</Text>
-
-                {usuario.state === "Servicio Activo" ||
-                usuario.state === "Servicio Pasivo" ? (
-                  <Text style={styles.tableHeader2}>{usuario.state}</Text>
-                ) : (
-                  <Text style={styles.tableHeader2}>{usuario.state}</Text>
-                )}
+                <Text style={styles.tableHeader2}>{usuario.state}</Text>
               </View>
             ))}
           </View>

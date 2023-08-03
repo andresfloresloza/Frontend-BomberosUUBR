@@ -19,7 +19,9 @@ import { userLogout } from "../../../redux/loginSlice";
 const PageVoluntarios = ({ Token }) => {
   const dispatch = useDispatch();
   const history = useNavigate();
+  const [buscador, setBuscador] = useState("");
   const [listaUsers, setListaUsers] = useState([]);
+  const [listaFilter, setListaFilter] = useState([]);
   const [modalAñadir, setModalAñadir] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [user, setUser] = useState({});
@@ -28,15 +30,40 @@ const PageVoluntarios = ({ Token }) => {
   useEffect(() => {
     getUsers();
   }, []);
+  //----------------------FILTRAR LOS USUARIOS-------------------------------
+  const handleSearch = (e) => {
+    setBuscador(e.target.value);
+    console.log(buscador);
+    filterData(e.target.value);
+  };
+
+  const filterData = (searchTerm) => {
+    const resultadosBusqueda = listaFilter.filter((elemento) => {
+      if (
+        elemento.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        elemento.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        elemento.grade.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return elemento;
+      }
+    });
+    setListaUsers(resultadosBusqueda);
+  };
+  //-------------------------------------------------------------------------
 
   //---------------------CARGAR LISTA USUARIOS------------------------------
   const getUsers = () => {
     getListUsers(Token.access)
       .then((response) => {
+        if(response.status === 401){
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
         const sortedUsers = response.list_users.sort(
           (a, b) => a.legajo - b.legajo
         );
         setListaUsers(sortedUsers);
+        setListaFilter(sortedUsers);
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
@@ -128,20 +155,34 @@ const PageVoluntarios = ({ Token }) => {
             </div>
           </div>
         )}
-        <div className="container-btns">
-          <button className="btn-reporte">
-            <a href={ROUTER_REPORTE_VOLUNTARIOS}>Ver Reporte</a>
-          </button>
-          <button className="btn-excel" onClick={handleExportExcel}>
-            <a>Descargar Excel</a>
-          </button>
+        <div className="contenedor-btn-buscador">
+          <div className="container-btns">
+            <button className="btn-reporte">
+              <a href={ROUTER_REPORTE_VOLUNTARIOS}>Ver Reporte</a>
+            </button>
+            <button className="btn-excel" onClick={handleExportExcel}>
+              <a>Descargar Excel</a>
+            </button>
+          </div>
+          <div className="container-buscador">
+            <input
+              type="search"
+              placeholder="Buscar..."
+              value={buscador}
+              onChange={handleSearch}
+            />
+          </div>
         </div>
         <div className="users">
           {listaUsers?.map((user) => (
             <div key={user.id} className="user">
               <div className="user-info">
-                {user.state ? <p>Disponible</p> : <p>Licencia</p>}
-              </div>
+                {user.state === "Servicio Activo" || user.state === "Servicio Pasivo" ? (
+                      <p >{user.state}</p>
+                    ) : (
+                      <p style={{ color: "#ff0000ba" }}>{user.state}</p>
+                    )}
+                  </div>
               <div className="user-image">
                 <img
                   src={DOMAIN_IMAGE + user.image}

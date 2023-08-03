@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import "../../../styles/pages/home/views/pageInventario.css";
 import {
-  ROUTER_ACCESORIOS,
-  ROUTER_EPP_ESTRUCTURAL,
-  ROUTER_EPP_FORESTAL,
-  ROUTER_HERRAMIENTAS,
+  ROUTER_OTROS,
+  ROUTER_EPP,
   ROUTER_LOGIN_FORM,
 } from "../../../config/Constant";
 import ModalForm from "../../../components/ModalForm";
@@ -28,18 +26,46 @@ const PageInventario = ({ Token }) => {
   const [modalEliminar, setModalEliminar] = useState(false);
   const [product, setProduct] = useState({});
 
-  const EppEstructural = listProducts.filter(
-    (listProducts) => listProducts.category === "EPP Estructural"
-  );
-  const EppForestal = listProducts.filter(
-    (listProducts) => listProducts.category === "EPP Forestal"
-  );
-  const Herramientas = listProducts.filter(
-    (listProducts) => listProducts.category === "Herramientas"
-  );
-  const Accesorios = listProducts.filter(
-    (listProducts) => listProducts.category === "Accesorios"
-  );
+
+  const categories = [
+    "EPP Estructural",
+    "EPP Forestal",
+    "EPP Rescate Técnico",
+    "EPP Hazmat",
+    "EPP Convencionales",
+    "Chalecos",
+    "Equipo de Rescate Técnico",
+    "Herramientas de Rescate Técnico",
+    "Equipo Hazmat",
+    "Equipos y Materiales de APH",
+    "Protección Respiratoria",
+    "Herramientas Manuales",
+    "Herramientas Mecánicas",
+    "Herramientas Hidráulicas",
+    "Herramientas Motorizadas",
+    "Herramientas Neumáticas",
+    "Motores",
+    "Dispositivo de Señalización Vial",
+    "Dispositivo de Espuma",
+    "Agentes Químicos",
+    "Escaleras",
+    "Mochila de Bomba Manual",
+    "Llaves de Acople",
+    "Acoples",
+    "Válvulas",
+    "Pitones",
+    "Mangueras",
+    "Material para Campamento",
+    "Otros"
+  ];
+  
+  const filteredProductsByCategory = {};
+
+  categories.forEach((category) => {
+    filteredProductsByCategory[category] = listProducts.filter(
+      (product) => product.category === category
+    );
+  });
 
   useEffect(() => {
     getList();
@@ -49,6 +75,10 @@ const PageInventario = ({ Token }) => {
   const getList = () => {
     getListTypeProduct(Token.access)
       .then((response) => {
+        if (response.status === 401) {
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
         setListProduct(response.list_type_product);
       })
       .catch((error) => {
@@ -122,7 +152,7 @@ const PageInventario = ({ Token }) => {
                 </tr>
               </thead>
 
-              {EppEstructural?.map((list) => (
+              {filteredProductsByCategory["EPP Estructural"]?.map((list) => (
                 <tbody key={list.id}>
                   <tr>
                     <td>
@@ -130,7 +160,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            history(ROUTER_EPP_ESTRUCTURAL, {
+                            history(ROUTER_EPP, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -180,7 +210,7 @@ const PageInventario = ({ Token }) => {
                 </tr>
               </thead>
 
-              {EppForestal?.map((list) => (
+              {filteredProductsByCategory["EPP Forestal"]?.map((list) => (
                 <tbody key={list.id}>
                   <tr>
                     <td>
@@ -188,7 +218,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            history(ROUTER_EPP_FORESTAL, {
+                            history(ROUTER_EPP, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -227,7 +257,7 @@ const PageInventario = ({ Token }) => {
         </div>
 
         <div className="titulo">
-          <h3>Herramientas</h3>
+          <h3>EPP Rescate Técnico</h3>
           <div className="container_tabla">
             <table>
               <thead>
@@ -238,7 +268,7 @@ const PageInventario = ({ Token }) => {
                 </tr>
               </thead>
 
-              {Herramientas?.map((list) => (
+              {filteredProductsByCategory["EPP Rescate Técnico"]?.map((list) => (
                 <tbody key={list.id}>
                   <tr>
                     <td>
@@ -246,7 +276,7 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            history(ROUTER_HERRAMIENTAS, {
+                            history(ROUTER_EPP, {
                               state: {
                                 id: list.id,
                                 name: list.name,
@@ -285,7 +315,7 @@ const PageInventario = ({ Token }) => {
         </div>
 
         <div className="titulo">
-          <h3>Accesorios</h3>
+          <h3>EPP Hazmat</h3>
           <div className="container_tabla">
             <table>
               <thead>
@@ -296,7 +326,7 @@ const PageInventario = ({ Token }) => {
                 </tr>
               </thead>
 
-              {Accesorios?.map((list) => (
+              {filteredProductsByCategory["EPP Hazmat"]?.map((list) => (
                 <tbody key={list.id}>
                   <tr>
                     <td>
@@ -304,7 +334,1457 @@ const PageInventario = ({ Token }) => {
                       <button className="btn-ver">
                         <a
                           onClick={() => {
-                            history(ROUTER_ACCESORIOS, {
+                            history(ROUTER_EPP, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>EPP Convencionales</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["EPP Convencionales"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_EPP, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Chalecos</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Chalecos"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Equipo de Rescate Técnico</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Equipo de Rescate Técnico"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas de Rescate Técnico</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas de Rescate Técnico"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Equipo Hazmat</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Equipo Hazmat"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Equipos y Materiales de APH</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Equipos y Materiales de APH"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Protección Respiratoria</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Protección Respiratoria"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas Manuales</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas Manuales"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas Mecánicas</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas Mecánicas"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas Hidráulicas</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas Hidráulicas"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas Motorizadas</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas Motorizadas"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Herramientas Neumáticas</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Herramientas Neumáticas"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Motores</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Motores"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Dispositivo de Señalización Vial</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Dispositivo de Señalización Vial"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Dispositivo de Espuma</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Dispositivo de Espuma"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Agentes Químicos</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Agentes Químicos"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Escaleras</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Escaleras"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Mochila de Bomba Manual</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Mochila de Bomba Manual"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Llaves de Acople</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Llaves de Acople"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Acoples</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Acoples"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Válvulas</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Válvulas"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Pitones</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Pitones"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Mangueras</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Mangueras"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Material para Campamento</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Material para Campamento"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
+                              state: {
+                                id: list.id,
+                                name: list.name,
+                                category: list.category,
+                              },
+                            });
+                          }}
+                        >
+                          Ver
+                        </a>
+                      </button>
+                      <button
+                        className="btn-editar"
+                        onClick={() => {
+                          setProduct(list);
+                          handleOpenModalAñadir();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-eliminar"
+                        onClick={() => {
+                          setProduct(list);
+                          setModalEliminar(true);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h3>Otros</h3>
+          <div className="container_tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <p>Nombre</p>
+                  </th>
+                </tr>
+              </thead>
+
+              {filteredProductsByCategory["Otros"]?.map((list) => (
+                <tbody key={list.id}>
+                  <tr>
+                    <td>
+                      <p>{list.name} </p>
+                      <button className="btn-ver">
+                        <a
+                          onClick={() => {
+                            history(ROUTER_OTROS, {
                               state: {
                                 id: list.id,
                                 name: list.name,

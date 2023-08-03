@@ -137,12 +137,28 @@
 .container-button .button:hover {
   background-color: #29c909;
 }
-
+.contenedor-btn-buscador {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .container-btns {
-  width: auto;
+  width: 75%;
   margin: 10px 0px;
   display: flex;
   justify-content: space-evenly;
+}
+.container-buscador {
+  width: 25%;
+  margin: 10px 75px;
+  display: flex;
+  justify-content: flex-end;
+}
+.container-buscador input[type="search"] {
+  width: 100%;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 .container-btns .btn-reporte,
 .container-btns .btn-excel {
@@ -194,6 +210,10 @@
     width: 40%;
     margin-right: 2px;
   }
+  .container-buscador {
+    width: 40%;
+    margin: 10px 30px;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -229,6 +249,16 @@
   }
   .container-btns {
     display: none;
+  }
+  .contenedor-btn-buscador {
+    justify-content: flex-end;
+  }
+  .container-buscador {
+    width: 40%;
+    margin: 10px 25px;
+  }
+  .container-buscador input[type="search"] {
+    padding: 8px 10px;
   }
 }
 
@@ -278,6 +308,14 @@
   .container-btns .btn-excel a {
     font-size: 12px;
   }
+  .container-buscador {
+    width: 60%;
+    margin: 10px 20px;
+  }
+  .container-buscador input[type="search"] {
+    padding: 5px 10px;
+    font-size: 15px;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -312,5 +350,12 @@
   .container-button .button img {
     width: 45%;
     margin-right: 5px;
+  }.container-buscador {
+    width: 65%;
+    margin: 10px 7px;
+  }
+  .container-buscador input[type="search"] {
+    padding: 5px 10px;
+    font-size: 12px;
   }
 }

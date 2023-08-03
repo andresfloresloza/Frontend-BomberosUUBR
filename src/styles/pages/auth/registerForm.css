@@ -36,6 +36,8 @@
 
 .form-groups-user input[type="text"],
 .form-groups-user input[type="password"],
+.form-groups-user input[type="date"],
+
 .form-groups-user select {
   font-family: "Maven Pro", sans-serif;
   height: 40px;
@@ -74,6 +76,7 @@
   }
   .form-groups-user input[type="text"],
   .form-groups-user input[type="password"],
+  .form-groups-user input[type="date"],
   .form-groups-user select {
     height: 35px;
     width: 80%;
@@ -104,6 +107,7 @@
   }
   .form-groups-user input[type="text"],
   .form-groups-user input[type="password"],
+  .form-groups-user input[type="date"],
   .form-groups-user select {
     height: 30px;
     width: 80%;
@@ -131,6 +135,7 @@
     width: 25%;
   }
   .form-groups-user input[type="text"],
+  .form-groups-user input[type="date"],
   .form-groups-user input[type="password"],
   .form-groups-user select {
     height: 22px;

@@ -23,8 +23,10 @@ const ReporteVoluntarios = ({ Token }) => {
   //---------------------CARGAR LISTA USUARIOS------------------------------
   const getUsers = () => {
     getListUsers(Token.access).then((response) => {
-      const sortedUsers = response.list_users.sort((a, b) => a.legajo - b.legajo);
-    setListaUsers(sortedUsers);
+      const sortedUsers = response.list_users.sort(
+        (a, b) => a.legajo - b.legajo
+      );
+      setListaUsers(sortedUsers);
     });
   };
   //---------------------CARGAR USER ENCARGADO------------------------------
@@ -79,7 +81,7 @@ const ReporteVoluntarios = ({ Token }) => {
     },
     tableHeader: {
       width: "40%",
-      fontSize: 9,
+      fontSize: 8,
       borderRightWidth: 1,
       fontStyle: "bold",
       textAlign: "center",
@@ -87,7 +89,7 @@ const ReporteVoluntarios = ({ Token }) => {
     },
     tableHeader1: {
       width: "5%",
-      fontSize: 9,
+      fontSize: 8,
       borderRightWidth: 1,
       fontStyle: "bold",
       textAlign: "center",
@@ -95,7 +97,7 @@ const ReporteVoluntarios = ({ Token }) => {
     },
     tableHeader2: {
       width: "20%",
-      fontSize: 9,
+      fontSize: 8,
       borderRightWidth: 1,
       fontStyle: "bold",
       textAlign: "center",
@@ -112,7 +114,7 @@ const ReporteVoluntarios = ({ Token }) => {
 
           <View style={styles.table}>
             <View style={styles.tableRow}>
-              <Text style={styles.tableHeader1}>-</Text>
+              <Text style={styles.tableHeader1}>N°</Text>
               <Text style={styles.tableHeader2}>LEGAJO</Text>
               <Text style={styles.tableHeader2}>SANGRE</Text>
               <Text style={styles.tableHeader}>NOMBRE COMPLETO</Text>
@@ -132,10 +134,12 @@ const ReporteVoluntarios = ({ Token }) => {
                 <Text style={styles.tableHeader2}>{usuario.grade}</Text>
                 <Text style={styles.tableHeader}>{usuario.address}</Text>
                 <Text style={styles.tableHeader2}>{usuario.phone_number}</Text>
-                {usuario.state ? (
-                  <Text style={styles.tableHeader2}>Disponible</Text>
+
+                {usuario.state === "Servicio Activo" ||
+                usuario.state === "Servicio Pasivo" ? (
+                  <Text style={styles.tableHeader2}>{usuario.state}</Text>
                 ) : (
-                  <Text style={styles.tableHeader2}>Licencia</Text>
+                  <Text style={styles.tableHeader2}>{usuario.state}</Text>
                 )}
               </View>
             ))}
@@ -145,7 +149,7 @@ const ReporteVoluntarios = ({ Token }) => {
             ----------------------------------------------
           </Text>
           <Text style={styles.firma}>
-            ENCARGADO: {user.first_name} {user.last_name}{" "}
+            ENCARGADO: {user.first_name} {user.last_name}
           </Text>
         </Page>
       </Document>

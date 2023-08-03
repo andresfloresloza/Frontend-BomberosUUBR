@@ -7,18 +7,20 @@ import {
 } from "../../services/UsuariosService";
 import "../../styles/pages/auth/registerForm.css";
 import { toast } from "react-toastify";
+import { DOMAIN_IMAGE } from "../../config/Constant";
 const RegisterForm = ({ onClose, Token, object }) => {
   const [user, setUser] = useState({});
   const [image, setImage] = useState("");
   const [legajo, setLegajo] = useState("");
-  const [state, setState] = useState(true);
-  const [grade, setGrade] = useState("");
+  const [state, setState] = useState("Servicio Activo");
+  const [position, setPosition] = useState("Usuario");
+  const [grade, setGrade] = useState("Postulante");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [blood_type, setBloodType] = useState("(A+)");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("@gmail.com");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const fileRef = useRef(null);
@@ -27,7 +29,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
   );
 
   useEffect(() => {
-    if (Token.is_superuser === true) {
+    if (Token.position === "Administrador") {
       if (object !== null) {
         getUser(object.id);
       }
@@ -61,12 +63,14 @@ const RegisterForm = ({ onClose, Token, object }) => {
       setAddress(response.data.user.address);
       setPhoneNumber(response.data.user.phone_number);
       setBloodType(response.data.user.blood_type);
+      setPosition(response.data.user.position);
       setLegajo(response.data.user.legajo);
       setState(response.data.user.state);
       setGrade(response.data.user.grade);
       setEmail(response.data.user.username);
       setPassword(response.data.user.password);
       setConfirmPassword(response.data.user.password2);
+      setImageView(DOMAIN_IMAGE + response.data.user.image);
       setUser(response.data.user);
     });
   };
@@ -77,9 +81,10 @@ const RegisterForm = ({ onClose, Token, object }) => {
     if (validatePassword()) {
       postUser(Token.access, {
         username: email,
-        password: password,
-        password2: confirmPassword,
+        password: "bomberosuubr0",
+        password2: "bomberosuubr0",
         legajo: legajo,
+        position: position,
         state: state,
         grade: grade,
         first_name: first_name,
@@ -112,6 +117,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
         password: password,
         password2: confirmPassword,
         legajo: legajo,
+        position: position,
         state: state,
         grade: grade,
         first_name: first_name,
@@ -171,15 +177,10 @@ const RegisterForm = ({ onClose, Token, object }) => {
   const SubmitData = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (Token.is_superuser === true) {
-      if (object === null) {
-        registerNewUser();
-      } else {
-        updateUser(object.id);
-      }
+    if (object === null) {
+      registerNewUser();
     } else {
-      updateUser(Token.id);
+      updateUser(object.id);
     }
   };
 
@@ -187,25 +188,28 @@ const RegisterForm = ({ onClose, Token, object }) => {
     <>
       <div className="register-form-container">
         <form className="register-form-user">
-          {Token.is_superuser ? (
-            <>
-              <div className="form-groups-user">
-                <div className="container-image">
-                  <img
-                    className="imagen-perfil"
-                    src={imageView}
-                    alt="Imagen"
-                    onClick={handleOpenFilePicker}
-                  />
-                  <input
-                    accept="image/x-png,image/jpeg"
-                    ref={fileRef}
-                    type="file"
-                    style={{ display: "none", cursor: "pointer" }}
-                    onChange={handleChangeFile}
-                  />
-                </div>
+          <>
+            <div className="form-groups-user">
+              <div className="container-image">
+                <img
+                  className="imagen-perfil"
+                  src={imageView}
+                  alt="Imagen"
+                  onClick={handleOpenFilePicker}
+                />
+                <input
+                  accept="image/x-png,image/jpeg"
+                  ref={fileRef}
+                  type="file"
+                  style={{ display: "none", cursor: "pointer" }}
+                  onChange={handleChangeFile}
+                />
               </div>
+            </div>
+
+            {Token.position === "Administrador" ||Token.position === "Personal"||
+            Token.is_superuser ||
+            Token.position === "" ? (
               <div className="form-groups-user">
                 <label htmlFor="name">Legajo:</label>
                 <input
@@ -217,71 +221,114 @@ const RegisterForm = ({ onClose, Token, object }) => {
                   onChange={(e) => setLegajo(e.target.value)}
                 />
               </div>
+            ) : (
+              <></>
+            )}
+            {Token.position === "Administrador" || Token.position === "Personal"||
+            Token.is_superuser ||
+            Token.position === "" ? (
+              <div className="form-groups-user">
+                <label htmlFor="name">Rol:</label>
+                <select
+                  value={position}
+                  onChange={(e) => setPosition(e.target.value)}
+                >
+                  <option value="Administrador">Administrador</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Inventario">Inventario</option>
+                  <option value="Usuario">Usuario</option>
+                </select>
+              </div>
+            ) : (
+              <></>
+            )}
+            {Token.position === "Administrador" ||Token.position === "Personal"||
+            Token.is_superuser ||
+            Token.position === "" ? (
               <div className="form-groups-user">
                 <label htmlFor="name">Estado:</label>
                 <select
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                 >
-                  <option value="true">Disponible</option>
-                  <option value="false">Licencia</option>
+                  <option value="Servicio Activo">Servicio Activo</option>
+                  <option value="Servicio Pasivo">Servicio Pasivo</option>
+                  <option value="Baja">Baja</option>
                 </select>
               </div>
+            ) : (
+              <></>
+            )}
+            {Token.position === "Administrador" ||Token.position === "Personal"||
+            Token.is_superuser ||
+            Token.position === "" ? (
               <div className="form-groups-user">
                 <label htmlFor="name">Grado:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Grado..."
+                <select
                   value={grade}
-                  required
                   onChange={(e) => setGrade(e.target.value)}
-                />
+                >
+                  <option value="Postulante">Postulante</option>
+                  <option value="Alumno">Alumno</option>
+                  <option value="Bombero I">Bombero I</option>
+                  <option value="Bombero II">Bombero II</option>
+                  <option value="Subteniente">Subteniente</option>
+                  <option value="Teniente">Teniente</option>
+                  <option value="Capitán">Capitán</option>
+                  <option value="Comandante">Comandante</option>
+                </select>
               </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Nombre:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Nombre..."
-                  value={first_name}
-                  required
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Apellido:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Apellido..."
-                  value={last_name}
-                  required
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Dirección:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Direccion..."
-                  value={address}
-                  required
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Teléfono:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Teléfono..."
-                  value={phone_number}
-                  required
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-              </div>
+            ) : (
+              <></>
+            )}
+
+            <div className="form-groups-user">
+              <label htmlFor="name">Nombre:</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Nombre..."
+                value={first_name}
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="form-groups-user">
+              <label htmlFor="name">Apellido:</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Apellido..."
+                value={last_name}
+                required
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="form-groups-user">
+              <label htmlFor="name">Dirección:</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Direccion..."
+                value={address}
+                required
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="form-groups-user">
+              <label htmlFor="name">Teléfono:</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Teléfono..."
+                value={phone_number}
+                required
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+            {Token.position === "Administrador" ||Token.position === "Personal"||
+            Token.is_superuser ||
+            Token.position === "" ? (
               <div className="form-groups-user">
                 <label htmlFor="name">Tipo Sangre:</label>
                 <select
@@ -297,180 +344,48 @@ const RegisterForm = ({ onClose, Token, object }) => {
                   <option value="(O+)">(O+)</option>
                   <option value="(O-)">(O-)</option>
                 </select>
-                
               </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Correo Electrónico:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Correo Electrónico..."
-                  value={email}
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Contraseña:</label>
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Contraseña..."
-                  value={password}
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Confirmar Contraseña:</label>
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Confirmar Contraseña..."
-                  value={confirmPassword}
-                  required
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
-              <button className="btn_enviar" onClick={SubmitData}>
-                Guardar
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="form-groups-user">
-                <div className="container-image">
-                  <img
-                    className="imagen-perfil"
-                    src={imageView}
-                    alt="Imagen"
-                    onClick={handleOpenFilePicker}
-                  />
-                  <input
-                    accept="image/x-png,image/jpeg"
-                    ref={fileRef}
-                    type="file"
-                    style={{ display: "none", cursor: "pointer" }}
-                    onChange={handleChangeFile}
-                  />
-                </div>
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Legajo:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Legajo..."
-                  value={legajo}
-                  required
-                  onChange={(e) => setLegajo(e.target.value)}
-                />
-              </div>
+            ) : (
+              <></>
+            )}
 
-              <div className="form-groups-user">
-                <label htmlFor="name">Grado:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Grado..."
-                  value={grade}
-                  required
-                  onChange={(e) => setGrade(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Nombre:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Nombre..."
-                  value={first_name}
-                  required
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Apellido:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Apellido..."
-                  value={last_name}
-                  required
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Dirección:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Direccion..."
-                  value={address}
-                  required
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Teléfono:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Teléfono..."
-                  value={phone_number}
-                  required
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Tipo Sangre:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Tipo Sangre..."
-                  value={blood_type}
-                  required
-                  onChange={(e) => setBloodType(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Correo Electrónico:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Correo Electrónico..."
-                  value={email}
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Contraseña:</label>
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Contraseña..."
-                  value={password}
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Confirmar Contraseña:</label>
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Confirmar Contraseña..."
-                  value={confirmPassword}
-                  required
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
-              <button className="btn_enviar" onClick={SubmitData}>
-                Guardar
-              </button>
-            </>
-          )}
+            <div className="form-groups-user">
+              <label htmlFor="name">Correo Electrónico:</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Correo Electrónico..."
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-groups-user">
+              <label htmlFor="name">Contraseña:</label>
+              <input
+                className="input"
+                type="password"
+                placeholder="Contraseña..."
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="form-groups-user">
+              <label htmlFor="name">Confirmar Contraseña:</label>
+              <input
+                className="input"
+                type="password"
+                placeholder="Confirmar Contraseña..."
+                value={confirmPassword}
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <button className="btn_enviar" onClick={SubmitData}>
+              Guardar
+            </button>
+          </>
         </form>
       </div>
     </>

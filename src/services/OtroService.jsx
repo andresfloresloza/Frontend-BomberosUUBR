@@ -1,10 +1,10 @@
 import axios from "axios";
 import { DOMAIN } from "../config/Constant";
 
-export const postHerramientasAccesorios = (token, type_product) => {
+export const postOtros = (token, type_product) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(DOMAIN + "herramientas-accesorios/", type_product, {
+      .post(DOMAIN + "otros/", type_product, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
@@ -19,10 +19,10 @@ export const postHerramientasAccesorios = (token, type_product) => {
   });
 };
 
-export const saveImageHerramientasAccesorios = (token, id, formData) => {
+export const saveImageOtros = (token, id, formData) => {
   return new Promise((resolve, reject) => {
     axios
-      .patch(DOMAIN + "herramientas-accesorios/" + id + "/", formData, {
+      .patch(DOMAIN + "otros/" + id + "/", formData, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -36,28 +36,10 @@ export const saveImageHerramientasAccesorios = (token, id, formData) => {
   });
 };
 
-export const getListHerramientasAccesorios = (token) => {
+export const getListOtros = (token) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(DOMAIN + "herramientas-accesorios/", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
-export const getDetailHerramientasAccesorios = (token, id) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(DOMAIN + "herramientas-accesorios/" + id + "/", {
+      .get(DOMAIN + "otros/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
@@ -72,10 +54,10 @@ export const getDetailHerramientasAccesorios = (token, id) => {
   });
 };
 
-export const putHerramientasAccesorios = (token, id, type_product) => {
+export const getDetailOtros = (token, id) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(DOMAIN + "herramientas-accesorios/" + id + "/", type_product, {
+      .get(DOMAIN + "otros/" + id + "/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
@@ -90,10 +72,28 @@ export const putHerramientasAccesorios = (token, id, type_product) => {
   });
 };
 
-export const deleteHerramientasAccesorios = (token, id) => {
+export const putOtros = (token, id, type_product) => {
   return new Promise((resolve, reject) => {
     axios
-      .delete(DOMAIN + "herramientas-accesorios/" + id + "/", {
+      .put(DOMAIN + "otros/" + id + "/", type_product, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const deleteOtros = (token, id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(DOMAIN + "otros/" + id + "/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,

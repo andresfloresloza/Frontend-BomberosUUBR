@@ -7,18 +7,18 @@ import { useEffect, useState } from "react";
 import ModalForm from "../../../components/ModalForm";
 import RegisterProduct from "../forms/RegisterProduct";
 import {
-  deleteEppEstructuralForestal,
-  getListEppEstructuralForestal,
-} from "../../../services/EppEstructuralForestal";
+  deleteEpp,
+  getListEpp,
+} from "../../../services/EppService";
 import {
   DOMAIN_IMAGE,
   ROUTER_LOGIN_FORM,
   ROUTER_REPORTE_INVENTARIO,
 } from "../../../config/Constant";
 import {
-  deleteHerramientasAccesorios,
-  getListHerramientasAccesorios,
-} from "../../../services/HerramientasAccesorios";
+  deleteOtros,
+  getListOtros,
+} from "../../../services/OtroService";
 import DeleteObject from "../../../components/DeleteObject";
 import * as XLSX from "xlsx";
 import { useDispatch } from "react-redux";
@@ -45,12 +45,19 @@ const PageProduct = ({ Token }) => {
   const getList = () => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
       console.log("Entre a: " + location.state.category);
-      getListEppEstructuralForestal(Token.access)
+      getListEpp(Token.access)
         .then((response) => {
-          setListProduct(response.list_epp_estructural_forestal);
+          if (response.status === 401) {
+            dispatch(userLogout(Token));
+            history(ROUTER_LOGIN_FORM);
+          }
+          setListProduct(response.list_epp);
         })
         .catch((error) => {
           if (error.response && error.response.status === 401) {
@@ -60,9 +67,13 @@ const PageProduct = ({ Token }) => {
         });
     } else {
       console.log("Entre a: " + location.state.category);
-      getListHerramientasAccesorios(Token.access)
+      getListOtros(Token.access)
         .then((response) => {
-          setListProduct(response.list_herramienta_accesorio);
+          if (response.status === 401) {
+            dispatch(userLogout(Token));
+            history(ROUTER_LOGIN_FORM);
+          }
+          setListProduct(response.list_otros);
         })
         .catch((error) => {
           if (error.response && error.response.status === 401) {
@@ -78,14 +89,17 @@ const PageProduct = ({ Token }) => {
   const deleteProductType = (id) => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
-      deleteEppEstructuralForestal(Token.access, id).then((response) => {
+      deleteEpp(Token.access, id).then((response) => {
         console.log(response);
         getList();
       });
     } else {
-      deleteHerramientasAccesorios(Token.access, id).then((response) => {
+      deleteOtros(Token.access, id).then((response) => {
         console.log(response);
         getList();
       });
@@ -238,7 +252,12 @@ const PageProduct = ({ Token }) => {
               {EppEstructural_Forestal?.map((list) => (
                 <div className="user" key={list.id}>
                   <div className="user-info">
-                    <p>{list.codigo}</p>
+                    <p>{list.codigo} </p>
+                    {list.estado ? (
+                      <p style={{ color: "#fb5858" }}>Donación</p>
+                    ) : (
+                      <p style={{ color: "#fb5858" }}>Comprado</p>
+                    )}
                   </div>
                   <div className="user-image">
                     <img
@@ -284,6 +303,11 @@ const PageProduct = ({ Token }) => {
                 <div className="user" key={list.id}>
                   <div className="user-info">
                     <p>{list.codigo}</p>
+                    {list.estado ? (
+                      <p style={{ color: "#fb5858" }}>Donación</p>
+                    ) : (
+                      <p style={{ color: "#fb5858" }}>Comprado</p>
+                    )}
                   </div>
                   <div className="user-image">
                     <img
@@ -295,8 +319,8 @@ const PageProduct = ({ Token }) => {
                     />
                   </div>
                   <div className="user-info">
-                    <h2>Talla: {list.talla}</h2>
-                    <p>Marca: {list.marca}</p>
+                    <h2>Nombre: {list.nombre}</h2>
+                    <p>Descripción: {list.descripcion}</p>
                   </div>
                   <div className="user-actions">
                     <button

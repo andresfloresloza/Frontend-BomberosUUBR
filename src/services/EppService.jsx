@@ -2,9 +2,9 @@ import axios from "axios"
 import { DOMAIN } from "../config/Constant";
 
 
- export const postEppEstructuralForestal = (token, type_product) => {
+ export const postEpp = (token, type_product) => {
      return new Promise((resolve, reject) => {
-         axios.post(DOMAIN + "epp-estructural-forestal/", type_product, {
+         axios.post(DOMAIN + "epp/", type_product, {
              headers: {
                  "Content-Type": "application/json",
                  "Authorization": "Bearer " + token
@@ -18,9 +18,9 @@ import { DOMAIN } from "../config/Constant";
      });
  }
 
- export const saveImageEppEstructuralForestal = (token, id, formData) => {
+ export const saveImageEpp = (token, id, formData) => {
     return new Promise((resolve, reject) => {
-        axios.patch(DOMAIN + "epp-estructural-forestal/"+id+"/", formData,{
+        axios.patch(DOMAIN + "epp/"+id+"/", formData,{
             headers: {
                 "Authorization": "Bearer " + token
             },
@@ -33,9 +33,9 @@ import { DOMAIN } from "../config/Constant";
     });
 }
 
-export const getListEppEstructuralForestal = (token) => {
+export const getListEpp = (token) => {
     return new Promise((resolve, reject) => {
-        axios.get(DOMAIN + "epp-estructural-forestal/", {
+        axios.get(DOMAIN + "epp/", {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
@@ -49,9 +49,9 @@ export const getListEppEstructuralForestal = (token) => {
     });
 }
 
- export const getDetailEppEstructuralForestal = (token, id) => {
+ export const getDetailEpp = (token, id) => {
      return new Promise((resolve, reject) => {
-         axios.get(DOMAIN + "epp-estructural-forestal/"+id+"/", {
+         axios.get(DOMAIN + "epp/"+id+"/", {
              headers: {
                  "Content-Type": "application/json",
                  "Authorization": "Bearer " + token
@@ -65,9 +65,9 @@ export const getListEppEstructuralForestal = (token) => {
      });
  }
 
- export const putEppEstructuralForestal = (token,id, type_product) => {
+ export const putEpp = (token,id, type_product) => {
      return new Promise((resolve, reject) => {
-         axios.put(DOMAIN + "epp-estructural-forestal/"+id+"/", type_product,{
+         axios.put(DOMAIN + "epp/"+id+"/", type_product,{
              headers: {
                  "Content-Type": "application/json",
                  "Authorization": "Bearer " + token
@@ -81,9 +81,9 @@ export const getListEppEstructuralForestal = (token) => {
      });
  }
 
-export const deleteEppEstructuralForestal = (token, id) => {
+export const deleteEpp = (token, id) => {
     return new Promise((resolve, reject) => {
-        axios.delete(DOMAIN + "epp-estructural-forestal/"+id+"/", {
+        axios.delete(DOMAIN + "epp/"+id+"/", {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token

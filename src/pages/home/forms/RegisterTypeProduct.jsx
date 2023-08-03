@@ -12,6 +12,38 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("EPP Estructural");
 
+  const categories = [
+    "EPP Estructural",
+    "EPP Forestal",
+    "EPP Rescate Técnico",
+    "EPP Hazmat",
+    "EPP Convencionales",
+    "Chalecos",
+    "Equipo de Rescate Técnico",
+    "Herramientas de Rescate Técnico",
+    "Equipo Hazmat",
+    "Equipos y Materiales de APH",
+    "Protección Respiratoria",
+    "Herramientas Manuales",
+    "Herramientas Mecánicas",
+    "Herramientas Hidráulicas",
+    "Herramientas Motorizadas",
+    "Herramientas Neumáticas",
+    "Motores",
+    "Dispositivo de Señalización Vial",
+    "Dispositivo de Espuma",
+    "Agentes Químicos",
+    "Escaleras",
+    "Mochila de Bomba Manual",
+    "Llaves de Acople",
+    "Acoples",
+    "Válvulas",
+    "Pitones",
+    "Mangueras",
+    "Material para Campamento",
+    "Otros",
+  ];
+
   useEffect(() => {
     if (type_product !== null) {
       getTypeProduct(type_product.id);
@@ -29,25 +61,33 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
 
   //----------------------REGISTRO DEL TIPO PRODUCTO-------------------------
   const create_type_product = async () => {
-    postTypeProduct(Token.access, { name: name, category: category })
-      .then((response) => {
-        onClose();
-      })
-      .catch((error) => {
-        toast.error("Este producto ya existe en la categoria " + category);
-      });
+    if (name !== "") {
+      postTypeProduct(Token.access, { name: name, category: category })
+        .then((response) => {
+          onClose();
+        })
+        .catch((error) => {
+          toast.error("Este producto ya existe en la categoria " + category);
+        });
+    } else {
+      toast.error("No puedes dejar vacio esta casilla.");
+    }
   };
   //------------------------------------------------------------------------
 
   //----------------------ACTUALIZAR TIPO PRODUCTO----------------------
   const update_type_product = async (id) => {
-    putTypeProduct(Token.access, id, { name: name, category: category })
-      .then((response) => {
-        onClose();
-      })
-      .catch((error) => {
-        toast.error("Este producto ya existe en la categoria " + category);
-      });
+    if (name !== "") {
+      putTypeProduct(Token.access, id, { name: name, category: category })
+        .then((response) => {
+          onClose();
+        })
+        .catch((error) => {
+          toast.error("Este producto ya existe en la categoria " + category);
+        });
+    } else {
+      toast.error("No puedes dejar vacio esta casilla.");
+    }
   };
   //------------------------------------------------------------------------
 
@@ -83,10 +123,11 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="EPP Estructural">EPP Estructural</option>
-              <option value="EPP Forestal">EPP Forestal</option>
-              <option value="Herramientas">Herramientas</option>
-              <option value="Accesorios">Accesorios</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
           <Link className="submit-form-" onClick={SubmitData}>

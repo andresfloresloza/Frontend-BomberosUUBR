@@ -16,6 +16,7 @@ const LoginForm = () => {
     postLogin(email, password)
       .then((response) => {
         dispatch(userLogin(response));
+        console.log(response);
       })
       .catch((error) => {
       });

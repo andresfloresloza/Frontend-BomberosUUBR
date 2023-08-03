@@ -1,10 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
-import {
-  DOMAIN_IMAGE,
-  ROUTER_LOGIN_FORM,
-} from "../../../config/Constant";
+import { DOMAIN_IMAGE, ROUTER_LOGIN_FORM } from "../../../config/Constant";
 import "../../../styles/pages/home/views/pagePerfil.css";
 import ModalForm from "../../../components/ModalForm";
 import RegisterForm from "../../auth/RegisterForm";
@@ -27,6 +24,10 @@ const PagePerfil = ({ Token }) => {
   const getUser = () => {
     getDetailUser(Token.access, Token.id)
       .then((response) => {
+        if (response.status === 401) {
+          dispatch(userLogout(Token));
+          history(ROUTER_LOGIN_FORM);
+        }
         setUser(response.data.user);
       })
       .catch((error) => {
@@ -93,7 +94,9 @@ const PagePerfil = ({ Token }) => {
             <p className="nombre_completo">
               {user.first_name + " " + user.last_name}
             </p>
-            <p className="direccion">{user.address}</p>
+            <p className="direccion">
+              {user.address} - {user.phone_number}
+            </p>
           </section>
           <section className="section3">
             <div className="container-button-editar">
@@ -107,11 +110,11 @@ const PagePerfil = ({ Token }) => {
                 Editar
               </button>
             </div>
-            {user.state ? (
-              <p className="estado">Disponible</p>
-            ) : (
-              <p className="estado">Licencia</p>
-            )}
+            {user.state === "Servicio Activo" || user.state === "Servicio Pasivo" ? (
+                      <p  className="estado">{user.state}</p>
+                    ) : (
+                      <p className="estado" style={{ color: "#ff0000ba" }}>{user.state}</p>
+                    )}
           </section>
         </div>
         {/* <h1 className="titulo-perfil">ADQUISIONES</h1>

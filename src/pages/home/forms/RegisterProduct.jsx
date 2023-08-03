@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
-  getDetailEppEstructuralForestal,
-  postEppEstructuralForestal,
-  putEppEstructuralForestal,
-  saveImageEppEstructuralForestal,
-} from "../../../services/EppEstructuralForestal";
+  getDetailEpp,
+  postEpp,
+  putEpp,
+  saveImageEpp,
+} from "../../../services/EppService";
 import {
-  getDetailHerramientasAccesorios,
-  postHerramientasAccesorios,
-  putHerramientasAccesorios,
-  saveImageHerramientasAccesorios,
-} from "../../../services/HerramientasAccesorios";
+  getDetailOtros,
+  postOtros,
+  putOtros,
+  saveImageOtros,
+} from "../../../services/OtroService";
 import { toast } from "react-toastify";
+import { DOMAIN_IMAGE } from "../../../config/Constant";
 
 const RegisterProduct = ({ onClose, Token, product }) => {
   const fileRef = useRef(null);
@@ -28,6 +29,9 @@ const RegisterProduct = ({ onClose, Token, product }) => {
   const [color_suspensores, setColoresSuspensores] = useState("");
   const [material, setMaterial] = useState("");
   const [image, setImage] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+
   const [imageView, setImageView] = useState(
     require("../../../assets/subir.png")
   );
@@ -61,44 +65,32 @@ const RegisterProduct = ({ onClose, Token, product }) => {
   const getProduct = (id) => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
-      getDetailEppEstructuralForestal(Token.access, id).then((response) => {
-        setCodigo(response.data.epp_estructural_forestal.codigo);
-        setEstado(response.data.epp_estructural_forestal.estado);
-        setMarca(response.data.epp_estructural_forestal.marca);
-        setIndustria(response.data.epp_estructural_forestal.industria);
-        setTalla(response.data.epp_estructural_forestal.talla);
-        setAñoFabricacion(
-          response.data.epp_estructural_forestal.año_fabricacion
-        );
-        setColor(response.data.epp_estructural_forestal.color);
-        setColorReflectivo(
-          response.data.epp_estructural_forestal.color_reflectivo
-        );
-        setCertificacion(response.data.epp_estructural_forestal.certificacion);
-        setColoresSuspensores(
-          response.data.epp_estructural_forestal.color_suspensores
-        );
-        setMaterial(response.data.epp_estructural_forestal.material);
+      getDetailEpp(Token.access, id).then((response) => {
+        setCodigo(response.data.epp.codigo);
+        setEstado(response.data.epp.estado);
+        setMarca(response.data.epp.marca);
+        setIndustria(response.data.epp.industria);
+        setTalla(response.data.epp.talla);
+        setAñoFabricacion(response.data.epp.año_fabricacion);
+        setColor(response.data.epp.color);
+        setColorReflectivo(response.data.epp.color_reflectivo);
+        setCertificacion(response.data.epp.certificacion);
+        setColoresSuspensores(response.data.epp.color_suspensores);
+        setMaterial(response.data.epp.material);
+        setImageView(DOMAIN_IMAGE + response.data.epp.image);
       });
     } else {
-      getDetailHerramientasAccesorios(Token.access, id).then((response) => {
-        setCodigo(response.data.herramienta_accesorio.codigo);
-        setEstado(response.data.herramienta_accesorio.estado);
-        setMarca(response.data.herramienta_accesorio.marca);
-        setIndustria(response.data.herramienta_accesorio.industria);
-        setTalla(response.data.herramienta_accesorio.talla);
-        setAñoFabricacion(response.data.herramienta_accesorio.año_fabricacion);
-        setColor(response.data.herramienta_accesorio.color);
-        setColorReflectivo(
-          response.data.herramienta_accesorio.color_reflectivo
-        );
-        setCertificacion(response.data.herramienta_accesorio.certificacion);
-        setColoresSuspensores(
-          response.data.herramienta_accesorio.color_suspensores
-        );
-        setMaterial(response.data.herramienta_accesorio.material);
+      getDetailOtros(Token.access, id).then((response) => {
+        setCodigo(response.data.otros.codigo);
+        setEstado(response.data.otros.estado);
+        setNombre(response.data.otros.nombre);
+        setDescripcion(response.data.otros.descripcion);
+        setImageView(DOMAIN_IMAGE + response.data.otros.image);
       });
     }
   };
@@ -107,9 +99,12 @@ const RegisterProduct = ({ onClose, Token, product }) => {
   const register = () => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
-      postEppEstructuralForestal(Token.access, {
+      postEpp(Token.access, {
         codigo: codigo,
         estado: estado,
         marca: marca,
@@ -134,18 +129,11 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           );
         });
     } else {
-      postHerramientasAccesorios(Token.access, {
+      postOtros(Token.access, {
         codigo: codigo,
         estado: estado,
-        marca: marca,
-        industria: industria,
-        talla: talla,
-        año_fabricacion: año_fabricacion,
-        color: color,
-        color_reflectivo: color_reflectivo,
-        certificacion: certificacion,
-        color_suspensores: color_suspensores,
-        material: material,
+        nombre: nombre,
+        descripcion: descripcion,
         type_product: location.state.id,
       })
         .then((response) => {
@@ -166,9 +154,12 @@ const RegisterProduct = ({ onClose, Token, product }) => {
   const update = () => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
-      putEppEstructuralForestal(Token.access, product.id, {
+      putEpp(Token.access, product.id, {
         codigo: codigo,
         estado: estado,
         marca: marca,
@@ -193,18 +184,11 @@ const RegisterProduct = ({ onClose, Token, product }) => {
           );
         });
     } else {
-      putHerramientasAccesorios(Token.access, product.id, {
+      putOtros(Token.access, product.id, {
         codigo: codigo,
         estado: estado,
-        marca: marca,
-        industria: industria,
-        talla: talla,
-        año_fabricacion: año_fabricacion,
-        color: color,
-        color_reflectivo: color_reflectivo,
-        certificacion: certificacion,
-        color_suspensores: color_suspensores,
-        material: material,
+        nombre: nombre,
+        descripcion: descripcion,
         type_product_id: location.state.id,
       })
         .then((response) => {
@@ -230,17 +214,18 @@ const RegisterProduct = ({ onClose, Token, product }) => {
     data.append("image", image);
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
-      saveImageEppEstructuralForestal(Token.access, id, data)
+      saveImageEpp(Token.access, id, data)
         .then((response) => {})
-        .catch((error) => {
-        });
+        .catch((error) => {});
     } else {
-      saveImageHerramientasAccesorios(Token.access, id, data)
+      saveImageOtros(Token.access, id, data)
         .then((response) => {})
-        .catch((error) => {
-        });
+        .catch((error) => {});
     }
   };
 
@@ -253,13 +238,19 @@ const RegisterProduct = ({ onClose, Token, product }) => {
       update(product.id);
     }
   };
-
+  const convertDate = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${year}-${month}-${day}`;
+  };
   return (
     <>
       <div className="register-form-container">
         <form className="register-form-user">
           {location.state.category === "EPP Estructural" ||
-          location.state.category === "EPP Forestal" ? (
+          location.state.category === "EPP Forestal" ||
+          location.state.category === "EPP Rescate Técnico" ||
+          location.state.category === "EPP Hazmat" ||
+          location.state.category === "EPP Convencionales" ? (
             <>
               <div className="form-groups-user">
                 <div className="container-image">
@@ -336,9 +327,9 @@ const RegisterProduct = ({ onClose, Token, product }) => {
                 <label htmlFor="name">Año de Fabricación:</label>
                 <input
                   className="input"
-                  type="text"
+                  type="date"
                   placeholder="Año de Fabricación..."
-                  value={año_fabricacion}
+                  value={convertDate(año_fabricacion)}
                   required
                   onChange={(e) => setAñoFabricacion(e.target.value)}
                 />
@@ -433,60 +424,35 @@ const RegisterProduct = ({ onClose, Token, product }) => {
                 />
               </div>
               <div className="form-groups-user">
-                <label htmlFor="name">Marca:</label>
+                <label htmlFor="name">Estado:</label>
+                <select
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                >
+                  <option value="true">Donación</option>
+                  <option value="false">Comprado</option>
+                </select>
+              </div>
+              <div className="form-groups-user">
+                <label htmlFor="name">Nombre:</label>
                 <input
                   className="input"
                   type="text"
-                  placeholder="Marca..."
-                  value={marca}
+                  placeholder="Nombre..."
+                  value={nombre}
                   required
-                  onChange={(e) => setMarca(e.target.value)}
+                  onChange={(e) => setNombre(e.target.value)}
                 />
               </div>
               <div className="form-groups-user">
-                <label htmlFor="name">Industria:</label>
+                <label htmlFor="name">Descipcion:</label>
                 <input
                   className="input"
                   type="text"
-                  placeholder="Industria..."
-                  value={industria}
+                  placeholder="Descipcion..."
+                  value={descripcion}
                   required
-                  onChange={(e) => setIndustria(e.target.value)}
-                />
-              </div>
-              <div className="form-groups-user">
-                <label htmlFor="name">Color:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Color..."
-                  value={color}
-                  required
-                  onChange={(e) => setColor(e.target.value)}
-                />
-              </div>
-
-              <div className="form-groups-user">
-                <label htmlFor="name">Certificación:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Certificación..."
-                  value={certificacion}
-                  required
-                  onChange={(e) => setCertificacion(e.target.value)}
-                />
-              </div>
-
-              <div className="form-groups-user">
-                <label htmlFor="name">Material:</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Material..."
-                  value={material}
-                  required
-                  onChange={(e) => setMaterial(e.target.value)}
+                  onChange={(e) => setDescripcion(e.target.value)}
                 />
               </div>
               <button className="btn_enviar" onClick={SubmitData}>

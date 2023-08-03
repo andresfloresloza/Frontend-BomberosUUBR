@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDetailUser, getListUsers } from "../../services/UsuariosService";
+import { getDetailUser } from "../../services/UsuariosService";
 import {
   Document,
   PDFViewer,
@@ -10,15 +10,15 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import { getListEppEstructuralForestal } from "../../services/EppEstructuralForestal";
-import { getListHerramientasAccesorios } from "../../services/HerramientasAccesorios";
+import { getListEpp } from "../../services/EppService";
+import { getListOtros } from "../../services/OtroService";
 
 const ReporteInventario = ({ Token }) => {
   const location = useLocation();
   const [listProducts, setListProduct] = useState([]);
   const [user, setUser] = useState({});
   const fechaActual = format(new Date(), "dd/MM/yyyy");
-  const EppEstructural_Forestal = listProducts.filter(
+  const Epp = listProducts.filter(
     (listProducts) => listProducts.type_product === location.state.id
   );
   useEffect(() => {
@@ -31,16 +31,19 @@ const ReporteInventario = ({ Token }) => {
   const getList = () => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
       console.log("Entre a: " + location.state.category);
-      getListEppEstructuralForestal(Token.access).then((response) => {
-        setListProduct(response.list_epp_estructural_forestal);
+      getListEpp(Token.access).then((response) => {
+        setListProduct(response.list_epp);
       });
     } else {
       console.log("Entre a: " + location.state.category);
-      getListHerramientasAccesorios(Token.access).then((response) => {
-        setListProduct(response.list_herramienta_accesorio);
+      getListOtros(Token.access).then((response) => {
+        setListProduct(response.list_otros);
       });
     }
   };
@@ -49,6 +52,11 @@ const ReporteInventario = ({ Token }) => {
     getDetailUser(Token.access, Token.id).then((response) => {
       setUser(response.data.user);
     });
+  };
+
+  const convertDate = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
   };
 
   const styles = StyleSheet.create({
@@ -137,7 +145,7 @@ const ReporteInventario = ({ Token }) => {
 
               <View style={styles.table}>
                 <View style={styles.tableRow}>
-                  <Text style={styles.tableHeader1}>-</Text>
+                  <Text style={styles.tableHeader1}>N°</Text>
                   <Text style={styles.tableHeader2}>CÓDIGO</Text>
                   <Text style={styles.tableHeader2}>ESTADO</Text>
                   <Text style={styles.tableHeader2}>MARCA</Text>
@@ -148,22 +156,22 @@ const ReporteInventario = ({ Token }) => {
                   <Text style={styles.tableHeader2}>AÑO FABRICACIÓN</Text>
                   <Text style={styles.tableHeader}>CERTIFICACIÓN</Text>
                 </View>
-                {EppEstructural_Forestal.map((producto, index) => (
+                {Epp.map((producto, index) => (
                   <View key={index} style={styles.tableRow}>
                     <Text style={styles.tableHeader1}>{index + 1}</Text>
                     <Text style={styles.tableHeader2}>{producto.codigo}</Text>
                     {producto.estado ? (
-                  <Text style={styles.tableHeader2}>Donación</Text>
-                ) : (
-                  <Text style={styles.tableHeader2}>Comprado</Text>
-                )}
+                      <Text style={styles.tableHeader2}>Donación</Text>
+                    ) : (
+                      <Text style={styles.tableHeader2}>Comprado</Text>
+                    )}
                     <Text style={styles.tableHeader2}>{producto.marca}</Text>
                     <Text style={styles.tableHeader2}>{producto.material}</Text>
                     <Text style={styles.tableHeader}>{producto.industria}</Text>
                     <Text style={styles.tableHeader2}>{producto.talla}</Text>
                     <Text style={styles.tableHeader2}>{producto.color}</Text>
                     <Text style={styles.tableHeader2}>
-                      {producto.año_fabricacion}
+                      {convertDate(producto.año_fabricacion)}
                     </Text>
                     <Text style={styles.tableHeader}>
                       {producto.certificacion}
@@ -193,23 +201,23 @@ const ReporteInventario = ({ Token }) => {
                 <View style={styles.tableRow}>
                   <Text style={styles.tableHeader1}>-</Text>
                   <Text style={styles.tableHeader2}>CÓDIGO</Text>
-                  <Text style={styles.tableHeader2}>MARCA</Text>
-                  <Text style={styles.tableHeader}>INDUSTRIA</Text>
-                  <Text style={styles.tableHeader2}>COLOR</Text>
-                  <Text style={styles.tableHeader}>CERTIFICACIÓN</Text>
-                  <Text style={styles.tableHeader2}>MATERIAL</Text>
+                  <Text style={styles.tableHeader2}>ESTADO</Text>
+                  <Text style={styles.tableHeader2}>NOMBRE</Text>
+                  <Text style={styles.tableHeader2}>DESCRIPCION</Text>
                 </View>
-                {EppEstructural_Forestal.map((producto, index) => (
+                {Epp.map((producto, index) => (
                   <View key={index} style={styles.tableRow}>
                     <Text style={styles.tableHeader1}>{index + 1}</Text>
                     <Text style={styles.tableHeader2}>{producto.codigo}</Text>
-                    <Text style={styles.tableHeader2}>{producto.marca}</Text>
-                    <Text style={styles.tableHeader}>{producto.industria}</Text>
-                    <Text style={styles.tableHeader2}>{producto.color}</Text>
-                    <Text style={styles.tableHeader}>
-                      {producto.certificacion}
+                    {producto.estado ? (
+                      <Text style={styles.tableHeader2}>Donación</Text>
+                    ) : (
+                      <Text style={styles.tableHeader2}>Comprado</Text>
+                    )}
+                    <Text style={styles.tableHeader2}>{producto.nombre}</Text>
+                    <Text style={styles.tableHeader2}>
+                      {producto.descripcion}
                     </Text>
-                    <Text style={styles.tableHeader2}>{producto.material}</Text>
                   </View>
                 ))}
               </View>

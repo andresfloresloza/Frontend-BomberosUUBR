@@ -9,6 +9,9 @@ const LandingPage = () => {
       <header>
         <div className="hero">
           <div>
+            <a className="inicio_sesion" href="http://localhost:3000/login">Iniciar Sesión</a>
+          </div>
+          <div>
             <article className="logo-cont">
               <img src={require("../../assets/LOGO1.png")} />
               <img src={require("../../assets/LOGO2.png")} />
@@ -77,7 +80,7 @@ const LandingPage = () => {
             <div className="contenedor-textos-main">
               <h2 className="titulo left">MISIÓN</h2>
               <p>
-                ASISITIR EN SITUACIONES DE EMERGENCIA DE CARACTER URBANO COMO
+                ASISTIR EN SITUACIONES DE EMERGENCIA DE CARACTER URBANO COMO
                 TAMBIEN EN DESASTRES NATURALES, TECNOLOGICOS Y ANTROPICOS.
               </p>
             </div>
@@ -154,7 +157,6 @@ const LandingPage = () => {
               <h2 className="titulo left">NOVEDADES</h2>
               <div className="contenedor-galeria">
                 <div className="contenedor-parrafos">
-
                   <h3>CarWash - Lavado Automovil</h3>
                   <p className="parrafo">
                     Realizamos lavado y aspirado de tu vehiculo todos los días

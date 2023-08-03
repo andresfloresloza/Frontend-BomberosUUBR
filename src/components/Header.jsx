@@ -10,7 +10,7 @@ import "../styles/components/header.css";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../redux/loginSlice";
 
-const Header = ({Token}) => {
+const Header = ({ Token }) => {
   const dispatch = useDispatch();
   const history = useNavigate();
 
@@ -23,7 +23,7 @@ const Header = ({Token}) => {
 
   return (
     <>
-        {Token && (
+      {Token && (
         <nav>
           <div className="logo">
             <a href="/login">
@@ -33,10 +33,10 @@ const Header = ({Token}) => {
           </div>
           <div className="container-header">
             <input type="checkbox" id="menu-toggle" />
-            <label htmlFor ="menu-toggle" className="menu-icon">
+            <label htmlFor="menu-toggle" className="menu-icon">
               &#9776;
             </label>
-            {Token.is_superuser ? (
+            {Token.is_superuser && Token.position === "Administrador" && (
               <ul className="menu">
                 <li>
                   <a href={ROUTER_INICIO}>PERSONAL</a>
@@ -47,13 +47,54 @@ const Header = ({Token}) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                <li>
-                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
-                    SALIR
-                  </a>
-                </li>
+                <ul className="menu">
+                  <li>
+                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                      SALIR
+                    </a>
+                  </li>
+                </ul>{" "}
               </ul>
-            ) : (
+            )}
+            {Token.position === "Personal" && (
+              <ul className="menu">
+                <li>
+                  <a href={ROUTER_INICIO}>PERSONAL</a>
+                </li>
+                <li>
+                  <a href={ROUTER_PERFIL}>MI PERFIL</a>
+                </li>
+                <ul className="menu">
+                  <li>
+                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                      SALIR
+                    </a>
+                  </li>
+                </ul>{" "}
+              </ul>
+            )}
+            {Token.position === "Inventario" && (
+              <ul className="menu">
+                <li>
+                  <a href={ROUTER_INVENTARIO}>INVENTARIO</a>
+                </li>
+                <li>
+                  <a href={ROUTER_PERFIL}>MI PERFIL</a>
+                </li>
+                <ul className="menu">
+                  <li>
+                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                      SALIR
+                    </a>
+                  </li>
+                </ul>{" "}
+              </ul>
+            )}
+
+            {!(
+              Token.position === "Administrador" ||
+              Token.position === "Inventario" || Token.position === "Personal"
+            ) && (
               <ul className="menu">
                 <li>
                   <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>

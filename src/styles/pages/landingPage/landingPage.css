@@ -27,10 +27,22 @@ html {
   position: relative;
   overflow: hidden;
 }
+.inicio_sesion {
+  display: flex;
+  justify-content: end;
+  margin: 20px 35px;
+  color: yellow;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+.hero .inicio_sesion:hover {
+  color: rgba(255, 0, 0, 0.788);
+}
 .logo-cont {
   display: flex;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 .logo-cont > img {
   width: 12%;
@@ -442,6 +454,9 @@ footer {
   .hero {
     height: 580px;
   }
+  .textos-hero {
+    height: 250px;
+  }
   .logo-cont {
     margin-top: 100px;
   }
@@ -570,10 +585,14 @@ footer {
     width: 70%;
     justify-content: center;
   }
+  .inicio_sesion {
+    margin: 20px 25px;
+    font-size: 17px;
+  }
 }
 
 @media screen and (max-width: 450px) {
-  .website{
+  .website {
     padding: 50px 40px;
   }
   .contenedor {
@@ -589,6 +608,7 @@ footer {
     width: 20%;
     margin-left: 5px;
   }
+
   .textos-hero h1 {
     font-size: 40px;
   }
@@ -598,7 +618,7 @@ footer {
     margin-top: 5px;
   }
   .textos-hero {
-    height: 150px;
+    height: 200px;
   }
   .titulo {
     font-size: 35px;
@@ -708,6 +728,10 @@ footer {
     width: 100%;
     justify-content: center;
   }
+  .inicio_sesion {
+    margin: 20px 20px;
+    font-size: 15px;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -733,7 +757,7 @@ footer {
     margin-top: 2px;
   }
   .textos-hero {
-    height: 120px;
+    height: 200px;
   }
   .titulo {
     font-size: 32px;
@@ -815,6 +839,9 @@ footer {
     font-size: 18px;
   }
   .especialidad {
+    font-size: 13px;
+  }
+  .inicio_sesion {
     font-size: 13px;
   }
 }

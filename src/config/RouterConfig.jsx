@@ -1,13 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import {
-  ROUTER_ACCESORIOS,
-  ROUTER_EPP_ESTRUCTURAL,
-  ROUTER_EPP_FORESTAL,
-  ROUTER_HERRAMIENTAS,
+  ROUTER_EPP,
   ROUTER_INICIO,
   ROUTER_INITIAL,
   ROUTER_INVENTARIO,
   ROUTER_LOGIN_FORM,
+  ROUTER_OTROS,
   ROUTER_PERFIL,
   ROUTER_REPORTE_INVENTARIO,
   ROUTER_REPORTE_VOLUNTARIOS,
@@ -37,7 +35,16 @@ const RouterConfig = ({ Token }) => {
             </NoRequireAuth>
           }
         />
-        {Token.is_superuser ? (
+        <Route
+          path={ROUTER_PERFIL}
+          element={
+            <RequireAuth Token={Token}>
+              <Header Token={Token} />
+              <PagePerfil Token={Token} />
+            </RequireAuth>
+          }
+        />
+        {Token.position === "Administrador" && (
           <>
             <Route
               path={ROUTER_INICIO}
@@ -45,6 +52,15 @@ const RouterConfig = ({ Token }) => {
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
                   <PageVoluntarios Token={Token} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={ROUTER_REPORTE_VOLUNTARIOS}
+              element={
+                <RequireAuth Token={Token}>
+                  <Header Token={Token} />
+                  <ReporteVoluntarios Token={Token} />
                 </RequireAuth>
               }
             />
@@ -58,16 +74,16 @@ const RouterConfig = ({ Token }) => {
               }
             />
             <Route
-              path={ROUTER_PERFIL}
+              path={ROUTER_REPORTE_INVENTARIO}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                  <PagePerfil Token={Token} />
+                  <ReporteInventario Token={Token} />
                 </RequireAuth>
               }
             />
             <Route
-              path={ROUTER_EPP_ESTRUCTURAL}
+              path={ROUTER_EPP}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
@@ -76,7 +92,7 @@ const RouterConfig = ({ Token }) => {
               }
             />
             <Route
-              path={ROUTER_EPP_FORESTAL}
+              path={ROUTER_EPP}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
@@ -85,7 +101,7 @@ const RouterConfig = ({ Token }) => {
               }
             />
             <Route
-              path={ROUTER_HERRAMIENTAS}
+              path={ROUTER_OTROS}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
@@ -93,12 +109,17 @@ const RouterConfig = ({ Token }) => {
                 </RequireAuth>
               }
             />
+          </>
+        )}
+
+        {Token.position === "Personal" && (
+          <>
             <Route
-              path={ROUTER_ACCESORIOS}
+              path={ROUTER_INICIO}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                  <PageProduct Token={Token} />
+                  <PageVoluntarios Token={Token} />
                 </RequireAuth>
               }
             />
@@ -107,7 +128,20 @@ const RouterConfig = ({ Token }) => {
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                    <ReporteVoluntarios Token={Token} />
+                  <ReporteVoluntarios Token={Token} />
+                </RequireAuth>
+              }
+            />
+          </>
+        )}
+        {Token.position === "Inventario" && (
+          <>
+            <Route
+              path={ROUTER_INVENTARIO}
+              element={
+                <RequireAuth Token={Token}>
+                  <Header Token={Token} />
+                  <PageInventario Token={Token} />
                 </RequireAuth>
               }
             />
@@ -116,19 +150,34 @@ const RouterConfig = ({ Token }) => {
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                    <ReporteInventario Token={Token} />
+                  <ReporteInventario Token={Token} />
                 </RequireAuth>
               }
             />
-          </>
-        ) : (
-          <>
             <Route
-              path={ROUTER_PERFIL}
+              path={ROUTER_EPP}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                  <PagePerfil Token={Token} />
+                  <PageProduct Token={Token} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={ROUTER_EPP}
+              element={
+                <RequireAuth Token={Token}>
+                  <Header Token={Token} />
+                  <PageProduct Token={Token} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={ROUTER_OTROS}
+              element={
+                <RequireAuth Token={Token}>
+                  <Header Token={Token} />
+                  <PageProduct Token={Token} />
                 </RequireAuth>
               }
             />

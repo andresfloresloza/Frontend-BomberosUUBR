@@ -134,13 +134,16 @@ const ReporteInventario = ({ Token }) => {
     <PDFViewer style={{ width: "100%", height: "91vh" }}>
       <Document>
         {location.state.category === "EPP Estructural" ||
-        location.state.category === "EPP Forestal" ? (
+          location.state.category === "EPP Forestal" ||
+          location.state.category === "EPP Rescate Técnico" ||
+          location.state.category === "EPP Hazmat" ||
+          location.state.category === "EPP Convencionales" ? (
           <>
             <Page size="LETTER" style={styles.page}>
               <Text style={styles.date}>FECHA: {fechaActual}</Text>
               <Text style={styles.title}>LISTA DE PRODUCTOS </Text>
               <Text style={styles.title}>
-                {location.state.category} / {location.state.name}{" "}
+                {location.state.category} / {location.state.name}
               </Text>
 
               <View style={styles.table}>
@@ -184,7 +187,7 @@ const ReporteInventario = ({ Token }) => {
                 ----------------------------------------------
               </Text>
               <Text style={styles.firma}>
-                ENCARGADO: {user.first_name} {user.last_name}{" "}
+                ENCARGADO: {user.first_name} {user.last_name}
               </Text>
             </Page>
           </>
@@ -194,7 +197,7 @@ const ReporteInventario = ({ Token }) => {
               <Text style={styles.date}>FECHA: {fechaActual}</Text>
               <Text style={styles.title}>LISTA DE PRODUCTOS </Text>
               <Text style={styles.title}>
-                {location.state.category} / {location.state.name}{" "}
+                {location.state.category} / {location.state.name}
               </Text>
 
               <View style={styles.table}>
@@ -226,7 +229,7 @@ const ReporteInventario = ({ Token }) => {
                 ----------------------------------------------
               </Text>
               <Text style={styles.firma}>
-                ENCARGADO: {user.first_name} {user.last_name}{" "}
+                ENCARGADO: {user.first_name} {user.last_name}
               </Text>
             </Page>
           </>

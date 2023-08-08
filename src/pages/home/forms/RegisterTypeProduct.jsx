@@ -104,7 +104,7 @@ const RegisterTypeProduct = ({ onClose, Token, type_product }) => {
 
   return (
     <>
-      <div className="register-form-container">
+      <div className="register-form-container2">
         <form className="register-form">
           <div className="form-groups">
             <label htmlFor="name">Nombre:</label>

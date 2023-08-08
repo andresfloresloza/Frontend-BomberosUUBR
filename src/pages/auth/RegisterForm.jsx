@@ -13,6 +13,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
   const [image, setImage] = useState("");
   const [legajo, setLegajo] = useState("");
   const [state, setState] = useState("Servicio Activo");
+  const [cargo, setCargo] = useState("");
   const [position, setPosition] = useState("Usuario");
   const [grade, setGrade] = useState("Postulante");
   const [first_name, setFirstName] = useState("");
@@ -64,6 +65,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
       setPhoneNumber(response.data.user.phone_number);
       setBloodType(response.data.user.blood_type);
       setPosition(response.data.user.position);
+      setCargo(response.data.user.cargo);
       setLegajo(response.data.user.legajo);
       setState(response.data.user.state);
       setGrade(response.data.user.grade);
@@ -84,6 +86,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
         password: "bomberosuubr0",
         password2: "bomberosuubr0",
         legajo: legajo,
+        cargo: cargo,
         position: position,
         state: state,
         grade: grade,
@@ -117,6 +120,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
         password: password,
         password2: confirmPassword,
         legajo: legajo,
+        cargo: cargo,
         position: position,
         state: state,
         grade: grade,
@@ -207,7 +211,8 @@ const RegisterForm = ({ onClose, Token, object }) => {
               </div>
             </div>
 
-            {Token.position === "Administrador" ||Token.position === "Personal"||
+            {Token.position === "Administrador" ||
+            Token.position === "Personal" ||
             Token.is_superuser ||
             Token.position === "" ? (
               <div className="form-groups-user">
@@ -224,7 +229,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
             ) : (
               <></>
             )}
-            {Token.position === "Administrador" || Token.position === "Personal"||
+            {Token.position === "Administrador"  ||
             Token.is_superuser ||
             Token.position === "" ? (
               <div className="form-groups-user">
@@ -233,6 +238,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
                   value={position}
                   onChange={(e) => setPosition(e.target.value)}
                 >
+                  <option value="">-</option>
                   <option value="Administrador">Administrador</option>
                   <option value="Personal">Personal</option>
                   <option value="Inventario">Inventario</option>
@@ -242,7 +248,26 @@ const RegisterForm = ({ onClose, Token, object }) => {
             ) : (
               <></>
             )}
-            {Token.position === "Administrador" ||Token.position === "Personal"||
+            {
+            Token.position === "Personal" 
+             ? (
+              <div className="form-groups-user">
+                <label htmlFor="name">Rol:</label>
+                <select
+                  value={position}
+                  onChange={(e) => setPosition(e.target.value)}
+                >
+                  <option value="">-</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Inventario">Inventario</option>
+                  <option value="Usuario">Usuario</option>
+                </select>
+              </div>
+            ) : (
+              <></>
+            )}
+            {Token.position === "Administrador" ||
+            Token.position === "Personal" ||
             Token.is_superuser ||
             Token.position === "" ? (
               <div className="form-groups-user">
@@ -251,6 +276,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                 >
+                  <option value="">-</option>
                   <option value="Servicio Activo">Servicio Activo</option>
                   <option value="Servicio Pasivo">Servicio Pasivo</option>
                   <option value="Baja">Baja</option>
@@ -259,7 +285,8 @@ const RegisterForm = ({ onClose, Token, object }) => {
             ) : (
               <></>
             )}
-            {Token.position === "Administrador" ||Token.position === "Personal"||
+            {Token.position === "Administrador" ||
+            Token.position === "Personal" ||
             Token.is_superuser ||
             Token.position === "" ? (
               <div className="form-groups-user">
@@ -268,6 +295,7 @@ const RegisterForm = ({ onClose, Token, object }) => {
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
                 >
+                  <option value="">-</option>
                   <option value="Postulante">Postulante</option>
                   <option value="Alumno">Alumno</option>
                   <option value="Bombero I">Bombero I</option>
@@ -281,7 +309,24 @@ const RegisterForm = ({ onClose, Token, object }) => {
             ) : (
               <></>
             )}
-
+            {Token.position === "Administrador" ||
+            Token.position === "Personal" ||
+            Token.is_superuser ||
+            Token.position === "" ? (
+              <div className="form-groups-user">
+                <label htmlFor="name">Cargo:</label>
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Cargo..."
+                  value={cargo}
+                  required
+                  onChange={(e) => setCargo(e.target.value)}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
             <div className="form-groups-user">
               <label htmlFor="name">Nombre:</label>
               <input
@@ -326,7 +371,8 @@ const RegisterForm = ({ onClose, Token, object }) => {
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
-            {Token.position === "Administrador" ||Token.position === "Personal"||
+            {Token.position === "Administrador" ||
+            Token.position === "Personal" ||
             Token.is_superuser ||
             Token.position === "" ? (
               <div className="form-groups-user">

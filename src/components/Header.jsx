@@ -47,13 +47,11 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                <ul className="menu">
                   <li>
                     <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
                       SALIR
                     </a>
                   </li>
-                </ul>{" "}
               </ul>
             )}
             {Token.position === "Personal" && (
@@ -64,13 +62,11 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                <ul className="menu">
                   <li>
                     <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
                       SALIR
                     </a>
                   </li>
-                </ul>{" "}
               </ul>
             )}
             {Token.position === "Inventario" && (
@@ -81,26 +77,11 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                <ul className="menu">
                   <li>
                     <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
                       SALIR
                     </a>
                   </li>
-                </ul>{" "}
-              </ul>
-            )}
-
-            {!(
-              Token.position === "Administrador" ||
-              Token.position === "Inventario" || Token.position === "Personal"
-            ) && (
-              <ul className="menu">
-                <li>
-                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
-                    SALIR
-                  </a>
-                </li>
               </ul>
             )}
           </div>

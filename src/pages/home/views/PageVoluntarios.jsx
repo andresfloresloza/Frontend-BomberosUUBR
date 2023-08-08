@@ -183,6 +183,7 @@ const PageVoluntarios = ({ Token }) => {
                       <p style={{ color: "#ff0000ba" }}>{user.state}</p>
                     )}
                   </div>
+
               <div className="user-image">
                 <img
                   src={DOMAIN_IMAGE + user.image}
@@ -195,6 +196,8 @@ const PageVoluntarios = ({ Token }) => {
                   {user.first_name} {user.last_name}
                 </h2>
                 <p>{user.grade} </p>
+                <p>{user.cargo} </p>
+
               </div>
               <div className="user-actions">
                 <button

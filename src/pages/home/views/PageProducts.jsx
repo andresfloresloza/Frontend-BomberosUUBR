@@ -6,19 +6,13 @@ import "../../../styles/pages/home/views/pageVoluntarios.css";
 import { useEffect, useState } from "react";
 import ModalForm from "../../../components/ModalForm";
 import RegisterProduct from "../forms/RegisterProduct";
-import {
-  deleteEpp,
-  getListEpp,
-} from "../../../services/EppService";
+import { deleteEpp, getListEpp } from "../../../services/EppService";
 import {
   DOMAIN_IMAGE,
   ROUTER_LOGIN_FORM,
   ROUTER_REPORTE_INVENTARIO,
 } from "../../../config/Constant";
-import {
-  deleteOtros,
-  getListOtros,
-} from "../../../services/OtroService";
+import { deleteOtros, getListOtros } from "../../../services/OtroService";
 import DeleteObject from "../../../components/DeleteObject";
 import * as XLSX from "xlsx";
 import { useDispatch } from "react-redux";
@@ -111,7 +105,10 @@ const PageProduct = ({ Token }) => {
   const handleExportExcel = () => {
     if (
       location.state.category === "EPP Estructural" ||
-      location.state.category === "EPP Forestal"
+      location.state.category === "EPP Forestal" ||
+      location.state.category === "EPP Rescate Técnico" ||
+      location.state.category === "EPP Hazmat" ||
+      location.state.category === "EPP Convencionales"
     ) {
       const filteredData = EppEstructural_Forestal.map((product, index) => ({
         "N°": index + 1,
@@ -143,11 +140,8 @@ const PageProduct = ({ Token }) => {
         "N°": index + 1,
         CÓDIGO: product.codigo,
         ESTADO: product.estado ? "Donación" : "Comprado",
-        MARCA: product.marca,
-        INDUSTRIA: product.industria,
-        COLOR: product.color,
-        CERTIFICACIÓN: product.certificacion,
-        MATERIAL: product.material,
+        NOMBRE: product.nombre,
+        DESCRIPCION: product.descripcion,
       }));
       const worksheet = XLSX.utils.json_to_sheet(filteredData);
       const workbook = XLSX.utils.book_new();
@@ -247,7 +241,10 @@ const PageProduct = ({ Token }) => {
         </div>
         <div className="users">
           {location.state.category === "EPP Estructural" ||
-          location.state.category === "EPP Forestal" ? (
+          location.state.category === "EPP Forestal" ||
+          location.state.category === "EPP Rescate Técnico" ||
+          location.state.category === "EPP Hazmat" ||
+          location.state.category === "EPP Convencionales" ? (
             <>
               {EppEstructural_Forestal?.map((list) => (
                 <div className="user" key={list.id}>

@@ -1,5 +1,5 @@
-export const DOMAIN = "https://api-bomberosuubr.onrender.com//";
-export const DOMAIN_IMAGE = "https://api-bomberosuubr.onrender.com/";
+export const DOMAIN = "https://api-bomberosuubr.onrender.com/";
+export const DOMAIN_IMAGE = "https://api-bomberosuubr.onrender.com";
 
 export const ROUTER_INITIAL = "/";
 export const ROUTER_LOGIN_FORM = "/Login";

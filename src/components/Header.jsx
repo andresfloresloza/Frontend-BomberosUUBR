@@ -47,11 +47,11 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                  <li>
-                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
-                      SALIR
-                    </a>
-                  </li>
+                <li>
+                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                    SALIR
+                  </a>
+                </li>
               </ul>
             )}
             {Token.position === "Personal" && (
@@ -62,11 +62,11 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                  <li>
-                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
-                      SALIR
-                    </a>
-                  </li>
+                <li>
+                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                    SALIR
+                  </a>
+                </li>
               </ul>
             )}
             {Token.position === "Inventario" && (
@@ -77,11 +77,20 @@ const Header = ({ Token }) => {
                 <li>
                   <a href={ROUTER_PERFIL}>MI PERFIL</a>
                 </li>
-                  <li>
-                    <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
-                      SALIR
-                    </a>
-                  </li>
+                <li>
+                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                    SALIR
+                  </a>
+                </li>
+              </ul>
+            )}
+            {(Token.position === "Usuario") && (
+              <ul className="menu">
+                <li>
+                  <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>
+                    SALIR
+                  </a>
+                </li>
               </ul>
             )}
           </div>

@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const Token = useSelector((state) => state.login.token);
-  
+  console.log(Token);
   return (
     <div>
       <BrowserRouter>

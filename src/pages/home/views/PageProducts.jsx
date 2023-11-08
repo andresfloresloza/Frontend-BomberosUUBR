@@ -11,12 +11,14 @@ import {
   DOMAIN_IMAGE,
   ROUTER_LOGIN_FORM,
   ROUTER_REPORTE_INVENTARIO,
+  ROUTER_REPORTE_QR,
 } from "../../../config/Constant";
 import { deleteOtros, getListOtros } from "../../../services/OtroService";
 import DeleteObject from "../../../components/DeleteObject";
 import * as XLSX from "xlsx";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../redux/loginSlice";
+import QRCode from "qrcode.react";
 
 const PageProduct = ({ Token }) => {
   const dispatch = useDispatch();
@@ -51,7 +53,10 @@ const PageProduct = ({ Token }) => {
             dispatch(userLogout(Token));
             history(ROUTER_LOGIN_FORM);
           }
-          setListProduct(response.list_epp);
+          const sortedProducts = response.list_epp.sort(
+            (a, b) => a.codigo - b.codigo
+          );
+          setListProduct(sortedProducts);
         })
         .catch((error) => {
           if (error.response && error.response.status === 401) {
@@ -67,7 +72,10 @@ const PageProduct = ({ Token }) => {
             dispatch(userLogout(Token));
             history(ROUTER_LOGIN_FORM);
           }
-          setListProduct(response.list_otros);
+          const sortedProducts = response.list_otros.sort(
+            (a, b) => a.codigo - b.codigo
+          );
+          setListProduct(sortedProducts);
         })
         .catch((error) => {
           if (error.response && error.response.status === 401) {
@@ -208,6 +216,21 @@ const PageProduct = ({ Token }) => {
               Ver Reporte
             </a>
           </button>
+          <button className="btn-reporte">
+            <a
+              onClick={() => {
+                history(ROUTER_REPORTE_QR, {
+                  state: {
+                    id: location.state.id,
+                    name: location.state.name,
+                    category: location.state.category,
+                  },
+                });
+              }}
+            >
+              Ver Reporte Qr
+            </a>
+          </button>
           <button className="btn-excel" onClick={handleExportExcel}>
             <a>Descargar Excel</a>
           </button>
@@ -253,7 +276,7 @@ const PageProduct = ({ Token }) => {
                     {list.estado ? (
                       <p style={{ color: "#fb5858" }}>Donación</p>
                     ) : (
-                      <p style={{ color: "#fb5858" }}>Comprado</p>
+                      <p >Comprado</p>
                     )}
                   </div>
                   <div className="user-image">
@@ -271,7 +294,10 @@ const PageProduct = ({ Token }) => {
                     <p>Material: {list.material}</p>
                     <p>Industria: {list.industria}</p>
                   </div>
-                  <div className="user-actions">
+                  <div className="containerQR">
+                    <QRCode className="QR" value={list.url} />
+                  </div>
+                  <div className="user-actions-product">
                     <button
                       className="btn-editar"
                       onClick={() => {
@@ -319,7 +345,10 @@ const PageProduct = ({ Token }) => {
                     <h2>Nombre: {list.nombre}</h2>
                     <p>Descripción: {list.descripcion}</p>
                   </div>
-                  <div className="user-actions">
+                  <div style={{ background: "white", padding: "16px" }}>
+                    <QRCode value={list.url} />
+                  </div>
+                  <div className="user-actions-product">
                     <button
                       className="btn-editar"
                       onClick={() => {
@@ -353,45 +382,3 @@ const PageProduct = ({ Token }) => {
   );
 };
 export default PageProduct;
-
-/*        PRODUCTOS
-          <div className="producto">
-            <div className="producto-info">
-              <p>CHE-07 / Talla 38</p>
-            </div>
-            <div className="producto-image">
-              <img
-                src={require("../../../assets/perfil.png")}
-                alt="Imagen del producto"
-              />
-            </div>
-            <div className="producto-info">
-              <h2>Usuario 1</h2>
-              <p>usuario1@example.com</p>
-            </div>
-            <div className="producto-actions">
-              <button className="btn-editar">Editar</button>
-              <button className="btn-eliminar">Eliminar</button>
-            </div>
-          </div> 
-
-          DOTADOS
-          <div className="producto">
-              <div className="producto-info">
-                <p>CHE-07 / Talla 38</p>
-              </div>
-              <div className="producto-image">
-                <img
-                  src={require("../../../assets/perfil.png")}
-                  alt="Imagen del producto"
-                />
-              </div>
-              <div className="producto-info">
-                <h2>Usuario 1</h2>
-                <p>usuario1@example.com</p>
-              </div>
-              <div className="producto-actions-devolver">
-                <button className="btn-devolver">DEVOLVER</button>
-              </div>
-            </div>
-*/

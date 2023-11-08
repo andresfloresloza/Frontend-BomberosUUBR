@@ -49,7 +49,7 @@ export const getListEpp = (token) => {
     });
 }
 
- export const getDetailEpp = (token, id) => {
+ export const getDetailEpp = (token,id) => {
      return new Promise((resolve, reject) => {
          axios.get(DOMAIN + "epp/"+id+"/", {
              headers: {
@@ -64,6 +64,21 @@ export const getListEpp = (token) => {
          });
      });
  }
+
+ export const getDetalleEPP = (id) => {
+    return new Promise((resolve, reject) => {
+        axios.get(DOMAIN + "epp/"+id+"/", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((response) => {
+            resolve(response.data);
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    });
+}
 
  export const putEpp = (token,id, type_product) => {
      return new Promise((resolve, reject) => {

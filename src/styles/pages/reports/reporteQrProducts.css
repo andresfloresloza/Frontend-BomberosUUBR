@@ -1,0 +1,38 @@
+.container_qr {
+  height:auto
+}
+.cuadrante_qr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cuadrante_qr .info_qr {  
+    background-color: white;
+    width: calc(22.45% - 20px);
+    margin: 0px 0px;
+    padding: 10px 0px;
+    border: solid 1px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cuadrante_qr h1,
+  .cuadrante_qr p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+  }
+  
+  .container_qr button {
+    background-color: rgb(23, 194, 0);
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 15px 15px;
+  }
+  

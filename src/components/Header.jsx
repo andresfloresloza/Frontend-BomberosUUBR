@@ -84,7 +84,7 @@ const Header = ({ Token }) => {
                 </li>
               </ul>
             )}
-            {(Token.position === "Usuario") && (
+            {(Token.position === "Usuario" || Token.position=== "" ) && (
               <ul className="menu">
                 <li>
                   <a href={ROUTER_LOGIN_FORM} onClick={cerrar_sesion}>

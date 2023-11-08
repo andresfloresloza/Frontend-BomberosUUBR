@@ -1,0 +1,37 @@
+.container_reporte {
+  background-color: white;
+  overflow: hidden;
+}
+.container_reporte button{
+    background-color: rgb(23, 194, 0);
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 15px 15px;
+}
+.info_reporte {
+  margin: 0px 10px;
+}
+.info_reporte th {
+  font-family: arial;
+  font-weight: lighter;
+  border: 1px solid;
+  font-size: 14px;
+}
+.info_reporte p {
+  text-align: end;
+  margin: 15px;
+  font-family: arial;
+  font-weight: bold;
+}
+.info_reporte h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.info_reporte .firma {
+  text-align: center;
+  font-weight: lighter;
+}

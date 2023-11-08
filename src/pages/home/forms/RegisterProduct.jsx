@@ -31,6 +31,7 @@ const RegisterProduct = ({ onClose, Token, product }) => {
   const [image, setImage] = useState("");
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [url, setUrl] = useState("");
 
   const [imageView, setImageView] = useState(
     require("../../../assets/subir.png")
@@ -120,6 +121,12 @@ const RegisterProduct = ({ onClose, Token, product }) => {
       })
         .then((response) => {
           console.log(response.data);
+          putEpp(Token.access, response.data.id, {
+            url:
+              "https://react-bomberosuubr.web.app/Detalle/epp/" +
+              response.data.id,
+          });
+          console.log(response.data);
           saveImage(response.data.id);
           onClose();
         })
@@ -138,6 +145,11 @@ const RegisterProduct = ({ onClose, Token, product }) => {
       })
         .then((response) => {
           console.log(response.data);
+          putOtros(Token.access, response.data.id, {
+            url:
+              "https://react-bomberosuubr.web.app/Detalle/otros/" +
+              response.data.id,
+          });
           saveImage(response.data.id);
           onClose();
         })
@@ -220,11 +232,19 @@ const RegisterProduct = ({ onClose, Token, product }) => {
       location.state.category === "EPP Convencionales"
     ) {
       saveImageEpp(Token.access, id, data)
-        .then((response) => {})
+        .then((response) => {
+          putEpp(Token.access, response.data.id, {
+            url: "https://react-bomberosuubr.web.app/Detalle/epp/" + id,
+          });
+        })
         .catch((error) => {});
     } else {
       saveImageOtros(Token.access, id, data)
-        .then((response) => {})
+        .then((response) => {
+          putOtros(Token.access, response.data.id, {
+            url: "https://react-bomberosuubr.web.app/Detalle/otros/" + id,
+          });
+        })
         .catch((error) => {});
     }
   };

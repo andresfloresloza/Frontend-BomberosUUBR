@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import {
+  ROUTER_DETAIL,
   ROUTER_EPP,
   ROUTER_INICIO,
   ROUTER_INITIAL,
@@ -8,6 +9,7 @@ import {
   ROUTER_OTROS,
   ROUTER_PERFIL,
   ROUTER_REPORTE_INVENTARIO,
+  ROUTER_REPORTE_QR,
   ROUTER_REPORTE_VOLUNTARIOS,
 } from "./Constant";
 import NoRequireAuth from "./NoRequireAuth";
@@ -21,6 +23,8 @@ import Header from "../components/Header";
 import PageProduct from "../pages/home/views/PageProducts";
 import ReporteVoluntarios from "../pages/reports/ReporteVoluntarios";
 import ReporteInventario from "../pages/reports/ReporteInventario";
+import ProductDetail from "../pages/home/views/ProductDetail";
+import ReporteQrProducts from "../pages/reports/ReporteQrProducts";
 
 const RouterConfig = ({ Token }) => {
   return (
@@ -44,6 +48,7 @@ const RouterConfig = ({ Token }) => {
             </RequireAuth>
           }
         />
+        <Route path={ROUTER_DETAIL} element={<ProductDetail />} />
         {Token.position === "Administrador" && (
           <>
             <Route
@@ -79,6 +84,15 @@ const RouterConfig = ({ Token }) => {
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
                   <ReporteInventario Token={Token} />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={ROUTER_REPORTE_QR}
+              element={
+                <RequireAuth Token={Token}>
+                  <Header Token={Token} />
+                  <ReporteQrProducts Token={Token} />
                 </RequireAuth>
               }
             />
@@ -155,11 +169,11 @@ const RouterConfig = ({ Token }) => {
               }
             />
             <Route
-              path={ROUTER_EPP}
+              path={ROUTER_REPORTE_QR}
               element={
                 <RequireAuth Token={Token}>
                   <Header Token={Token} />
-                  <PageProduct Token={Token} />
+                  <ReporteQrProducts Token={Token} />
                 </RequireAuth>
               }
             />

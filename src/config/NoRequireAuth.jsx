@@ -3,7 +3,7 @@ import { ROUTER_INICIO, ROUTER_INVENTARIO, ROUTER_PERFIL } from "./Constant";
 
 const NoRequireAuth = ({ Token, children }) => {
   if (Token) {
-    if (Token.position === "Administrador" ||Token.position === "Personal") {
+    if (Token.position === "Administrador" || Token.position === "Personal") {
       return <Navigate to={ROUTER_INICIO} />;
     }
     if (Token.position === "Inventario") {

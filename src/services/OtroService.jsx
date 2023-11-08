@@ -54,13 +54,14 @@ export const getListOtros = (token) => {
   });
 };
 
-export const getDetailOtros = (token, id) => {
+export const getDetailOtros = (token,id) => {
   return new Promise((resolve, reject) => {
     axios
       .get(DOMAIN + "otros/" + id + "/", {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          "Authorization": "Bearer " + token
+
         },
       })
       .then((response) => {
@@ -71,6 +72,21 @@ export const getDetailOtros = (token, id) => {
       });
   });
 };
+
+export const getDetalleOTROS = (id) => {
+  return new Promise((resolve, reject) => {
+      axios.get(DOMAIN + "otros/"+id+"/", {
+          headers: {
+              "Content-Type": "application/json",
+          },
+      }).then((response) => {
+          resolve(response.data);
+      })
+      .catch((error) => {
+          reject(error);
+      });
+  });
+}
 
 export const putOtros = (token, id, type_product) => {
   return new Promise((resolve, reject) => {

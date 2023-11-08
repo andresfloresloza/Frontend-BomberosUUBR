@@ -55,7 +55,7 @@ const PageVoluntarios = ({ Token }) => {
   const getUsers = () => {
     getListUsers(Token.access)
       .then((response) => {
-        if(response.status === 401){
+        if (response.status === 401) {
           dispatch(userLogout(Token));
           history(ROUTER_LOGIN_FORM);
         }
@@ -92,9 +92,15 @@ const PageVoluntarios = ({ Token }) => {
       "NOMBRE COMPLETO": `${user.first_name} ${user.last_name}`,
       "CORREO ELECTRÓNICO": user.username,
       GRADO: user.grade,
+      CARGO: user.cargo,
       DIRECCIÓN: user.address,
       TELÉFONO: user.phone_number,
-      ESTADO: user.state ? "Disponible" : "Licencia",
+      ESTADO:
+        user.state === "Servicio Activo"
+          ? "Servicio Activo"
+          : user.state === "Servicio Pasivo"
+          ? "Servicio Pasivo"
+          : "Baja",
     }));
     const worksheet = XLSX.utils.json_to_sheet(filteredData);
     const workbook = XLSX.utils.book_new();
@@ -177,12 +183,13 @@ const PageVoluntarios = ({ Token }) => {
           {listaUsers?.map((user) => (
             <div key={user.id} className="user">
               <div className="user-info">
-                {user.state === "Servicio Activo" || user.state === "Servicio Pasivo" ? (
-                      <p >{user.state}</p>
-                    ) : (
-                      <p style={{ color: "#ff0000ba" }}>{user.state}</p>
-                    )}
-                  </div>
+                {user.state === "Servicio Activo" ||
+                user.state === "Servicio Pasivo" ? (
+                  <p>{user.state}</p>
+                ) : (
+                  <p style={{ color: "#ff0000ba" }}>{user.state}</p>
+                )}
+              </div>
 
               <div className="user-image">
                 <img
@@ -197,7 +204,6 @@ const PageVoluntarios = ({ Token }) => {
                 </h2>
                 <p>{user.grade} </p>
                 <p>{user.cargo} </p>
-
               </div>
               <div className="user-actions">
                 <button

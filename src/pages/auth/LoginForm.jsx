@@ -15,8 +15,8 @@ const LoginForm = () => {
   const iniciar_sesion = () => {
     postLogin(email, password)
       .then((response) => {
-        dispatch(userLogin(response));
         console.log(response);
+        dispatch(userLogin(response));
       })
       .catch((error) => {
       });

@@ -46,6 +46,26 @@
   justify-content: space-evenly;
   width: 100%;
 }
+.user-actions-product {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.user-actions-product .btn-editar,
+.user-actions-product .btn-eliminar,
+.user-agregate .btn-agregar {
+  font-family: "Maven Pro", sans-serif;
+  padding: 8px 12px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 5px;
+}
 .user-agregate {
   margin-top: 45px;
   display: flex;
@@ -97,8 +117,8 @@
 }
 
 .amplified-image-container {
-  max-width: 50%;
-  max-height: 90%;
+  max-width: 40%;
+  max-height: 80%;
   overflow: auto;
 }
 
@@ -184,6 +204,12 @@
   background-color: #00b10f;
 }
 
+/*QR*/
+.containerQR {
+  background: white;
+  margin: 10px 0px;
+}
+
 @media screen and (max-width: 1300px) {
   .users {
     margin-left: 20px;
@@ -259,6 +285,11 @@
   .container-buscador input[type="search"] {
     padding: 8px 10px;
   }
+
+  .amplified-image-container {
+    max-width: 50%;
+    max-height: 80%;
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -278,6 +309,13 @@
   }
   .user-info h2 {
     font-size: 20px;
+  }
+
+  .user-actions-product .btn-editar,
+  .user-actions-product .btn-eliminar,
+  .user-agregate .btn-agregar {
+    padding: 6px 8px;
+    font-size: 13px;
   }
   .user-actions .btn-editar,
   .user-actions .btn-eliminar,
@@ -315,6 +353,11 @@
     padding: 5px 10px;
     font-size: 15px;
   }
+  .amplified-image-container {
+    max-width: 70%;
+    max-height: 80%;
+  }
+
 }
 
 @media screen and (max-width: 320px) {
@@ -338,6 +381,12 @@
     padding: 6px 5px;
     font-size: 10px;
   }
+  .user-actions-product .btn-editar,
+  .user-actions-product .btn-eliminar,
+  .user-agregate .btn-agregar {
+    padding: 6px 5px;
+    font-size: 10px;
+  }
   .container-button {
     margin: 0px 8px 15px 0px;
   }
@@ -349,12 +398,17 @@
   .container-button .button img {
     width: 45%;
     margin-right: 5px;
-  }.container-buscador {
+  }
+  .container-buscador {
     width: 65%;
     margin: 10px 7px;
   }
   .container-buscador input[type="search"] {
     padding: 5px 10px;
     font-size: 12px;
+  }
+  .amplified-image-container {
+    max-width: 60%;
+    max-height: 80%;
   }
 }

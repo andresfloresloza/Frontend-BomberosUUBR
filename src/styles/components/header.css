@@ -32,9 +32,10 @@ nav input[type="checkbox"] {
 }
 
 .logo p {
+  text-transform: uppercase;
   font-family: "Maven Pro", sans-serif;
   color: #ffffff;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .menu-icon {
@@ -105,7 +106,7 @@ nav input[type="checkbox"] {
   }
 
   .logo p {
-    font-size: 15px ;
+    font-size: 15px;
   }
 
   .menu-icon {
@@ -136,9 +137,10 @@ nav input[type="checkbox"] {
     text-decoration: none;
   }
 }
-@media screen and (max-width: 320px) {  .logo p {
-  font-size: 14px;
-}
+@media screen and (max-width: 320px) {
+  .logo p {
+    font-size: 14px;
+  }
   .menu a {
     font-size: 12px;
   }

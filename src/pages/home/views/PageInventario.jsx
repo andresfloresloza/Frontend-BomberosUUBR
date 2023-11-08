@@ -25,6 +25,7 @@ const PageInventario = ({ Token }) => {
   const [modalAñadir, setModalAñadir] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [product, setProduct] = useState({});
+  const filteredProductsByCategory = {};
 
 
   const categories = [
@@ -59,7 +60,6 @@ const PageInventario = ({ Token }) => {
     "Otros"
   ];
   
-  const filteredProductsByCategory = {};
 
   categories.forEach((category) => {
     filteredProductsByCategory[category] = listProducts.filter(
